@@ -4,27 +4,26 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kekocino.data.Plato
 import com.example.kekocino.ui.theme.KekoCinoTheme
 
-val platos = listOf(
-    Plato("Spaguetti Bolognesa", "principal", 700),
-    Plato("Ensalada Chilena", "ensalda", 100),
-    Plato("Mousse de Chocolate", "postre", 300)
-)
+/**
+ * Punto de entrada de la aplicación.
+ *
+ * En Android toda app arranca por una Activity. Esta es la única que tiene
+ * el proyecto: recibe el arranque del sistema y le pasa el control a Compose.
+ *
+ * setContent { } le dice a Compose que tome el control de la pantalla.
+ * Todo lo que se ponga dentro de las llaves es la interfaz de usuario de la app completa.
+ *
+ */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-
+            KekoCinoTheme {
+                // Aqui se conectará la navegación en la siguiente etapa.
+            }
         }
     }
 }
