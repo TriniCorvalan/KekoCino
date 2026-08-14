@@ -31,6 +31,10 @@ androidx-compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "u
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+# Iconos extendidos de Material. Version cubierta por el compose-bom.
+# Nota: el paquete "extended" pesa mas que "core" pero contiene todos los iconos;
+# "core" solo trae un subconjunto de ~150 y no incluye Visibility ni VisibilityOff.
+androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
 # coil-compose aporta el componente AsyncImage que usamos en las tarjetas de receta.
 coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
 # coil-network-okhttp es el motor que realmente descarga desde internet.
