@@ -9,7 +9,12 @@ activityCompose = "1.8.0"
 kotlin = "2.2.10"
 composeBom = "2026.02.01"
 # Coil: libreria para descargar y mostrar imagenes desde una URL de internet.
-coil = "3.5.0"
+# Se fija la version 3.3.0 (y no la ultima 3.5.0) a proposito:
+# Coil 3.4+ exige kotlin-stdlib 2.3/2.4, pero el compilador Kotlin de este
+# proyecto es 2.2 y no puede leer esas clases -> el proyecto no compila.
+# Regla general: la version de una libreria debe ser compatible con la
+# version de Kotlin del proyecto, no siempre "la mas nueva".
+coil = "3.3.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
