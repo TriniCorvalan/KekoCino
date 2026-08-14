@@ -22,10 +22,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import com.example.kekocino.data.Recipe
 import com.example.kekocino.data.User
 import com.example.kekocino.data.weeklyRecipes
+import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla principal: grilla con las 5 recetas de la semana.
@@ -137,5 +139,33 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PREVIEWS
+// ---------------------------------------------------------------------------
+
+/** En teléfono se ven 2 columnas. */
+@Preview(showBackground = true, name = "Minuta - Teléfono")
+@Composable
+fun MinutaScreenPhonePreview() {
+    KekoCinoTheme {
+        MinutaScreen(
+            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
+            onRecipeClick = {}
+        )
+    }
+}
+
+/** En tablet se ven 3 o más columnas automáticamente gracias a GridCells.Adaptive. */
+@Preview(showBackground = true, name = "Minuta - Tablet", widthDp = 800, heightDp = 1280)
+@Composable
+fun MinutaScreenTabletPreview() {
+    KekoCinoTheme {
+        MinutaScreen(
+            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
+            onRecipeClick = {}
+        )
     }
 }

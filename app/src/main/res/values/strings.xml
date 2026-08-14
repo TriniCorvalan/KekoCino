@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">KekoCino</string>
+
+    <!-- Títulos de pantalla -->
+    <string name="title_login">Bienvenida a KekoCino</string>
+    <string name="title_register">Crear cuenta</string>
+    <string name="title_recover">Recuperar contraseña</string>
+    <string name="title_minuta">Mi Minuta Semanal</string>
+
+    <!-- Botones -->
+    <string name="btn_enter">Entrar</string>
+    <string name="btn_create_account">Crear cuenta</string>
+    <string name="btn_send_instructions">Enviar instrucciones</string>
+
+    <!-- Vínculos -->
+    <string name="link_forgot_password">¿Olvidaste tu contraseña?</string>
+    <string name="link_no_account">¿No tienes cuenta? Crear una cuenta</string>
+    <string name="link_already_have_account">¿Ya tienes cuenta? Inicia sesión</string>
+    <string name="link_back_to_login">Volver al inicio de sesión</string>
+
+    <!-- Credenciales de prueba (para el README y la evaluación) -->
+    <string name="demo_email">demo@kekocino.cl</string>
+    <string name="demo_password">123456</string>
 </resources>

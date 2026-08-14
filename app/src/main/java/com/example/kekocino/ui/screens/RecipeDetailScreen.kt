@@ -33,8 +33,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
 import com.example.kekocino.data.Recipe
+import com.example.kekocino.data.weeklyRecipes
+import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla de detalle de una receta.
@@ -219,5 +222,25 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit) {
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PREVIEWS
+// ---------------------------------------------------------------------------
+
+@Preview(showBackground = true, name = "Detalle - Teléfono")
+@Composable
+fun RecipeDetailScreenPhonePreview() {
+    KekoCinoTheme {
+        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {})
+    }
+}
+
+@Preview(showBackground = true, name = "Detalle - Tablet", widthDp = 800, heightDp = 1280)
+@Composable
+fun RecipeDetailScreenTabletPreview() {
+    KekoCinoTheme {
+        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {})
     }
 }

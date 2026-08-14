@@ -26,9 +26,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.ui.components.ButtonPrimary
 import com.example.kekocino.ui.components.TextField
 import com.example.kekocino.ui.components.TitlePrimary
+import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla de recuperación de contraseña.
@@ -117,5 +119,25 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
                 Text("Volver al inicio de sesión")
             }
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PREVIEWS
+// ---------------------------------------------------------------------------
+
+@Preview(showBackground = true, name = "Recuperar - Teléfono")
+@Composable
+fun RecoverPasswordScreenPhonePreview() {
+    KekoCinoTheme {
+        RecoverPasswordScreen(onGoToLogin = {})
+    }
+}
+
+@Preview(showBackground = true, name = "Recuperar - Tablet", widthDp = 800, heightDp = 1280)
+@Composable
+fun RecoverPasswordScreenTabletPreview() {
+    KekoCinoTheme {
+        RecoverPasswordScreen(onGoToLogin = {})
     }
 }

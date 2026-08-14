@@ -25,11 +25,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.User
 import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.ui.components.ButtonPrimary
 import com.example.kekocino.ui.components.TextField
 import com.example.kekocino.ui.components.TitlePrimary
+import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla de inicio de sesión.
@@ -126,5 +128,29 @@ fun LoginScreen(
                 Text("¿No tienes cuenta? Crear una cuenta")
             }
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PREVIEWS — permiten ver la pantalla directamente en Android Studio sin
+// ejecutar la app. El panel "Design" o "Split" las muestra en tiempo real.
+// ---------------------------------------------------------------------------
+
+/** Vista previa en teléfono (tamaño normal). */
+@Preview(showBackground = true, name = "Login - Teléfono")
+@Composable
+fun LoginScreenPhonePreview() {
+    KekoCinoTheme {
+        LoginScreen(onLoginSuccess = {}, onGoToRegister = {}, onGoToRecover = {})
+    }
+}
+
+/** Vista previa en tablet (800dp de ancho). Demuestra que el formulario
+ *  se centra y no se estira de borde a borde en pantallas grandes. */
+@Preview(showBackground = true, name = "Login - Tablet", widthDp = 800, heightDp = 1280)
+@Composable
+fun LoginScreenTabletPreview() {
+    KekoCinoTheme {
+        LoginScreen(onLoginSuccess = {}, onGoToRegister = {}, onGoToRecover = {})
     }
 }

@@ -35,11 +35,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.User
 import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.ui.components.ButtonPrimary
 import com.example.kekocino.ui.components.TextField
 import com.example.kekocino.ui.components.TitlePrimary
+import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla de registro de nueva usuaria.
@@ -290,5 +292,25 @@ fun RegisterScreen(
                 Text("¿Ya tienes cuenta? Inicia sesión")
             }
         }
+    }
+}
+
+// ---------------------------------------------------------------------------
+// PREVIEWS
+// ---------------------------------------------------------------------------
+
+@Preview(showBackground = true, name = "Registro - Teléfono")
+@Composable
+fun RegisterScreenPhonePreview() {
+    KekoCinoTheme {
+        RegisterScreen(onRegisterSuccess = {}, onGoToLogin = {})
+    }
+}
+
+@Preview(showBackground = true, name = "Registro - Tablet", widthDp = 800, heightDp = 1280)
+@Composable
+fun RegisterScreenTabletPreview() {
+    KekoCinoTheme {
+        RegisterScreen(onRegisterSuccess = {}, onGoToLogin = {})
     }
 }
