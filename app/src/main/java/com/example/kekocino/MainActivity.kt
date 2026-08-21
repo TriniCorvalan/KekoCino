@@ -22,6 +22,7 @@ import com.example.kekocino.ui.screens.MinutaScreen
 import com.example.kekocino.ui.screens.RecipeDetailScreen
 import com.example.kekocino.ui.screens.RecoverPasswordScreen
 import com.example.kekocino.ui.screens.RegisterScreen
+import com.example.kekocino.ui.screens.VisualTimerScreen
 import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
@@ -100,9 +101,21 @@ fun KekoCinoApp() {
             if (recipe != null) {
                 RecipeDetailScreen(
                     recipe = recipe,
-                    onBack = { navController.popBackStack() }
+                    onBack = { navController.popBackStack() },
+                    onStartTimer = { minutes -> navController.navigate(Routes.timer(minutes)) }
                 )
             }
+        }
+        composable(
+            route = Routes.TIMER,
+            arguments = listOf(navArgument(Routes.MINUTES_ARG) { type = NavType.IntType })
+        ) { backStackEntry ->
+            val minutes = backStackEntry.arguments?.getInt(Routes.MINUTES_ARG) ?: 1
+            VisualTimerScreen(
+                initialMinutes = minutes,
+                user = currentUser,
+                onBack = { navController.popBackStack() }
+            )
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.kekocino.ui.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -9,10 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ClosedCaption
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
@@ -49,14 +55,19 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
  *  - Tabla nutricional: encabezado + filas con fondo alterno, separadas
  *    por [HorizontalDivider].
  *  - Texto: descripción, recomendación nutricional en una [Card].
- *  - Botón: flecha "atrás" en el [TopAppBar].
+ *  - Botón: flecha "atrás" en el [TopAppBar]; "Poner temporizador" por paso.
+ *
+ * Accesibilidad auditiva: cada paso de [Recipe.steps] indica su [com.example.kekocino.data.CookingStep.visualCue]
+ * —cómo se ve el plato cuando el paso está listo, en vez de un aviso sonoro—
+ * y el audio de la receta se ofrece transcrito en texto.
  *
  * @param recipe la receta cuyos datos se muestran.
  * @param onBack navega de vuelta a la grilla de la minuta.
+ * @param onStartTimer navega al temporizador visual con los minutos del paso elegido.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit) {
+fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -> Unit) {
     // Estado de los checkboxes de ingredientes (uno por cada ingrediente).
     // remember(recipe.id) reinicia los checks cuando se abre una receta nueva.
     val checkedIngredients = remember(recipe.id) {
@@ -219,6 +230,97 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit) {
                     }
                 }
 
+                if (recipe.steps.isNotEmpty()) {
+                    HorizontalDivider()
+
+                    // --- Paso a paso, con señal visual de término (accesibilidad auditiva) ---
+                    Text(
+                        text = "Paso a paso",
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                    recipe.steps.forEach { step ->
+                        Card(modifier = Modifier.fillMaxWidth()) {
+                            Column(modifier = Modifier.padding(16.dp)) {
+                                Row(verticalAlignment = Alignment.CenterVertically) {
+                                    Box(
+                                        contentAlignment = Alignment.Center,
+                                        modifier = Modifier
+                                            .size(28.dp)
+                                            .background(
+                                                color = MaterialTheme.colorScheme.primary,
+                                                shape = CircleShape
+                                            )
+                                    ) {
+                                        Text(
+                                            text = "${step.order}",
+                                            color = MaterialTheme.colorScheme.onPrimary,
+                                            fontWeight = FontWeight.Bold,
+                                            style = MaterialTheme.typography.bodyMedium
+                                        )
+                                    }
+                                    Text(
+                                        text = step.instruction,
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        modifier = Modifier.padding(start = 12.dp)
+                                    )
+                                }
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.padding(top = 8.dp, start = 40.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Filled.Visibility,
+                                        contentDescription = "Señal visual",
+                                        tint = MaterialTheme.colorScheme.primary,
+                                        modifier = Modifier.size(20.dp)
+                                    )
+                                    Text(
+                                        text = step.visualCue,
+                                        style = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                        modifier = Modifier.padding(start = 6.dp)
+                                    )
+                                }
+                                if (step.minutes > 0) {
+                                    Button(
+                                        onClick = { onStartTimer(step.minutes) },
+                                        modifier = Modifier.padding(top = 12.dp, start = 40.dp)
+                                    ) {
+                                        Text("Poner temporizador (${step.minutes} min)")
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (recipe.audioTranscript.isNotBlank()) {
+                    HorizontalDivider()
+
+                    // --- Transcripción del audio (accesibilidad auditiva) ---
+                    Card(modifier = Modifier.fillMaxWidth()) {
+                        Column(modifier = Modifier.padding(16.dp)) {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Icon(
+                                    imageVector = Icons.Filled.ClosedCaption,
+                                    contentDescription = "Transcripción",
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                                Text(
+                                    text = "Transcripción del audio",
+                                    style = MaterialTheme.typography.titleMedium,
+                                    modifier = Modifier.padding(start = 8.dp)
+                                )
+                            }
+                            Spacer(modifier = Modifier.height(6.dp))
+                            Text(
+                                text = recipe.audioTranscript,
+                                style = MaterialTheme.typography.bodyLarge
+                            )
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(16.dp))
             }
         }
@@ -233,7 +335,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit) {
 @Composable
 fun RecipeDetailScreenPhonePreview() {
     KekoCinoTheme {
-        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {})
+        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {}, onStartTimer = {})
     }
 }
 
@@ -241,6 +343,6 @@ fun RecipeDetailScreenPhonePreview() {
 @Composable
 fun RecipeDetailScreenTabletPreview() {
     KekoCinoTheme {
-        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {})
+        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {}, onStartTimer = {})
     }
 }

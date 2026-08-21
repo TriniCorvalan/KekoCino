@@ -6,11 +6,20 @@
     <string name="title_register">Crear cuenta</string>
     <string name="title_recover">Recuperar contraseña</string>
     <string name="title_minuta">Mi Minuta Semanal</string>
+    <string name="title_timer">Temporizador visual</string>
 
     <!-- Botones -->
     <string name="btn_enter">Entrar</string>
     <string name="btn_create_account">Crear cuenta</string>
     <string name="btn_send_instructions">Enviar instrucciones</string>
+    <string name="btn_start_timer">Poner temporizador</string>
+
+    <!-- Accesibilidad auditiva -->
+    <string name="accessibility_visual_alerts">Avisarme con destellos de pantalla</string>
+    <string name="accessibility_vibration">Avisarme con vibración</string>
+    <string name="accessibility_transcripts">Mostrar transcripción de los audios</string>
+    <string name="label_steps">Paso a paso</string>
+    <string name="label_transcript">Transcripción del audio</string>
 
     <!-- Vínculos -->
     <string name="link_forgot_password">¿Olvidaste tu contraseña?</string>
