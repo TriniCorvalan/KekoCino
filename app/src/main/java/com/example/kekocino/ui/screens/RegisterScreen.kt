@@ -51,6 +51,8 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
  *  - Radio buttons: preferencia alimentaria ([RadioButton]).
  *  - Combo box: cantidad de personas en el hogar ([ExposedDropdownMenuBox]).
  *  - Check list: aceptar términos y recibir consejos ([Checkbox]).
+ *  - Check list: preferencias de accesibilidad auditiva — destellos, vibración
+ *    y transcripción de audios ([Checkbox]).
  *  - Botón: "Crear cuenta", deshabilitado hasta que el formulario sea válido ([ButtonPrimary]).
  *  - Vínculo: "Ya tengo cuenta" ([TextButton]).
  *
@@ -84,6 +86,11 @@ fun RegisterScreen(
     // Check list.
     var acceptTerms by remember { mutableStateOf(false) }
     var receiveNewsletter by remember { mutableStateOf(false) }
+
+    // Check list: preferencias de accesibilidad auditiva.
+    var visualAlerts by remember { mutableStateOf(true) }
+    var vibration by remember { mutableStateOf(true) }
+    var showTranscripts by remember { mutableStateOf(true) }
 
     // Mensajes de error por campo.
     var nameError by remember { mutableStateOf<String?>(null) }
@@ -250,6 +257,66 @@ fun RegisterScreen(
                 )
             }
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+            // --- Check list: preferencias de accesibilidad auditiva ---
+            Text(
+                text = "Preferencias de accesibilidad",
+                style = MaterialTheme.typography.titleMedium,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { visualAlerts = !visualAlerts }
+                    .padding(vertical = 4.dp)
+            ) {
+                Checkbox(
+                    checked = visualAlerts,
+                    onCheckedChange = { visualAlerts = it }
+                )
+                Text(
+                    text = "Avisarme con destellos de pantalla",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { vibration = !vibration }
+                    .padding(vertical = 4.dp)
+            ) {
+                Checkbox(
+                    checked = vibration,
+                    onCheckedChange = { vibration = it }
+                )
+                Text(
+                    text = "Avisarme con vibración",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { showTranscripts = !showTranscripts }
+                    .padding(vertical = 4.dp)
+            ) {
+                Checkbox(
+                    checked = showTranscripts,
+                    onCheckedChange = { showTranscripts = it }
+                )
+                Text(
+                    text = "Mostrar transcripción de los audios",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+
             Spacer(modifier = Modifier.height(4.dp))
 
             // --- Botón principal (deshabilitado hasta que el formulario sea válido) ---
@@ -279,7 +346,10 @@ fun RegisterScreen(
                                 email = email.trim(),
                                 password = password,
                                 preference = selectedPreference,
-                                householdSize = householdSize
+                                householdSize = householdSize,
+                                visualAlerts = visualAlerts,
+                                vibration = vibration,
+                                showTranscripts = showTranscripts
                             )
                         )
                         onRegisterSuccess()
