@@ -18,6 +18,10 @@ package com.example.kekocino.data
  * @param carbohydrates gramos de carbohidratos por porción.
  * @param fats gramos de grasas por porción.
  * @param nutritionalTip recomendación nutricional personalizada para la receta.
+ * @param steps pasos de preparación, cada uno con su señal visual de término
+ *   (accesibilidad auditiva: reemplaza avisos sonoros como "hasta que suene").
+ * @param audioTranscript transcripción escrita de cualquier contenido narrado
+ *   de la receta, para no depender del audio.
  */
 data class Recipe(
     val id: Int,
@@ -30,5 +34,23 @@ data class Recipe(
     val proteins: Int,
     val carbohydrates: Int,
     val fats: Int,
-    val nutritionalTip: String
+    val nutritionalTip: String,
+    val steps: List<CookingStep> = emptyList(),
+    val audioTranscript: String = ""
+)
+
+/**
+ * Un paso de la preparación de una receta.
+ *
+ * @param order número de orden del paso (1, 2, 3...).
+ * @param instruction qué hacer en este paso.
+ * @param minutes minutos que toma este paso si requiere temporizador; 0 si no aplica.
+ * @param visualCue cómo se ve el plato cuando el paso está listo — el equivalente
+ *   visual de una señal que normalmente sería sonora (ej.: "empieza a chisporrotear").
+ */
+data class CookingStep(
+    val order: Int,
+    val instruction: String,
+    val minutes: Int,
+    val visualCue: String
 )

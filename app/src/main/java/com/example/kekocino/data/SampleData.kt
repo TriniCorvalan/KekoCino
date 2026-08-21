@@ -31,7 +31,14 @@ val weeklyRecipes: List<Recipe> = listOf(
         proteins = 32,
         carbohydrates = 35,
         fats = 8,
-        nutritionalTip = "El pollo es una excelente fuente de proteína magra. Retira la piel antes de cocinar para reducir las grasas saturadas sin perder sabor."
+        nutritionalTip = "El pollo es una excelente fuente de proteína magra. Retira la piel antes de cocinar para reducir las grasas saturadas sin perder sabor.",
+        steps = listOf(
+            CookingStep(1, "Dora las presas de pollo en una olla con aceite caliente.", 5, "La piel del pollo pasa de rosada a dorada pareja por todos los lados."),
+            CookingStep(2, "Agrega agua hasta cubrir y deja hervir con las papas y la zanahoria.", 20, "El agua burbujea con fuerza en toda la superficie, no solo en el borde."),
+            CookingStep(3, "Incorpora el zapallo y el choclo, cocina hasta que las verduras estén blandas.", 15, "Al pinchar la papa con un tenedor, entra sin resistencia."),
+            CookingStep(4, "Sirve caliente con perejil fresco picado por encima.", 0, "El vapor se ve subir apenas se sirve en el plato.")
+        ),
+        audioTranscript = "Video de la receta: 'Dora el pollo por ambos lados, agrega agua y papas, cocina veinte minutos, suma el zapallo y el choclo quince minutos más, y sirve con perejil fresco.'"
     ),
 
     Recipe(
@@ -54,7 +61,14 @@ val weeklyRecipes: List<Recipe> = listOf(
         proteins = 28,
         carbohydrates = 42,
         fats = 15,
-        nutritionalTip = "El zapallo es rico en betacaroteno, que el cuerpo convierte en vitamina A. Ayuda a la visión y al sistema inmune. Déjalo con cáscara al cocinarlo para conservar mas nutrientes."
+        nutritionalTip = "El zapallo es rico en betacaroteno, que el cuerpo convierte en vitamina A. Ayuda a la visión y al sistema inmune. Déjalo con cáscara al cocinarlo para conservar mas nutrientes.",
+        steps = listOf(
+            CookingStep(1, "Sofríe la cebolla y el ajo hasta que se vean transparentes.", 4, "La cebolla pasa de blanca opaca a translúcida y brillante."),
+            CookingStep(2, "Agrega la carne molida y cocina revolviendo.", 6, "La carne cambia de rojo a un color café parejo, sin partes rosadas."),
+            CookingStep(3, "Incorpora las papas y el zapallo con un poco de agua, cocina hasta que se deshagan.", 20, "El zapallo se ve desarmarse solo al remover con la cuchara."),
+            CookingStep(4, "Fríe un huevo por persona para servir encima del guiso.", 3, "La clara pasa de transparente a blanca sólida, la yema queda brillante.")
+        ),
+        audioTranscript = "Video de la receta: 'Sofríe cebolla y ajo, agrega la carne molida hasta que cambie de color, suma papas y zapallo con agua veinte minutos, y sirve con un huevo frito encima.'"
     ),
 
     Recipe(
@@ -77,7 +91,13 @@ val weeklyRecipes: List<Recipe> = listOf(
         proteins = 35,
         carbohydrates = 12,
         fats = 9,
-        nutritionalTip = "El pescado blanco como la merluza es bajo en grasas y alto en proteínas. Comerlo dos veces por semana reduce el riesgo cardiovascular. El limón aporta vitamina C que ayuda a absorber mejor el hierro del pescado."
+        nutritionalTip = "El pescado blanco como la merluza es bajo en grasas y alto en proteínas. Comerlo dos veces por semana reduce el riesgo cardiovascular. El limón aporta vitamina C que ayuda a absorber mejor el hierro del pescado.",
+        steps = listOf(
+            CookingStep(1, "Acomoda el pescado sobre las verduras en una fuente para horno.", 0, "El filete se ve firme y de un blanco parejo, sin partes translúcidas."),
+            CookingStep(2, "Rocía con aceite de oliva, limón y hierbas, y lleva al horno precalentado.", 25, "Los bordes de los pimentones y tomates empiezan a dorarse."),
+            CookingStep(3, "Retira cuando el pescado se separe en láminas fácilmente.", 0, "Al presionar el filete con un tenedor, se abre en capas sin resistencia.")
+        ),
+        audioTranscript = "Video de la receta: 'Acomoda el pescado sobre las verduras, rocía con aceite y limón, hornea veinticinco minutos y retira cuando el filete se abra en láminas fácilmente.'"
     ),
 
     Recipe(
@@ -100,7 +120,13 @@ val weeklyRecipes: List<Recipe> = listOf(
         proteins = 16,
         carbohydrates = 55,
         fats = 5,
-        nutritionalTip = "Los porotos son una fuente vegetal de proteínas y hierro. Combinarlos con el choclo forma una proteína completa, similar a la de la carne. Además son ricos en fibra, lo que ayuda a la digestión."
+        nutritionalTip = "Los porotos son una fuente vegetal de proteínas y hierro. Combinarlos con el choclo forma una proteína completa, similar a la de la carne. Además son ricos en fibra, lo que ayuda a la digestión.",
+        steps = listOf(
+            CookingStep(1, "Sofríe la cebolla y el ajo con un poco de aceite.", 4, "La cebolla se ve translúcida y ligeramente dorada en los bordes."),
+            CookingStep(2, "Agrega los porotos granados, el zapallo y el choclo con agua.", 25, "El caldo se ve espeso y el zapallo empieza a deshacerse en el borde."),
+            CookingStep(3, "Incorpora la albahaca fresca al final y deja reposar unos minutos.", 3, "Las hojas de albahaca se ven marchitas y oscurecidas al mezclarse con el calor.")
+        ),
+        audioTranscript = "Video de la receta: 'Sofríe cebolla y ajo, agrega porotos, zapallo y choclo con agua veinticinco minutos, incorpora albahaca fresca al final y deja reposar.'"
     ),
 
     Recipe(
@@ -121,6 +147,12 @@ val weeklyRecipes: List<Recipe> = listOf(
         proteins = 38,
         carbohydrates = 18,
         fats = 12,
-        nutritionalTip = "Terminar la semana con una ensalada fresca ayuda a equilibrar la ingesta de fibra y vitaminas. La lechuga romana es rica en acido fólico y vitamina K. Prepara el aderezo en casa para controlar la cantidad de sal y grasa."
+        nutritionalTip = "Terminar la semana con una ensalada fresca ayuda a equilibrar la ingesta de fibra y vitaminas. La lechuga romana es rica en acido fólico y vitamina K. Prepara el aderezo en casa para controlar la cantidad de sal y grasa.",
+        steps = listOf(
+            CookingStep(1, "Cocina la pechuga de pollo a la plancha por ambos lados.", 8, "El pollo pasa de rosado a blanco parejo por dentro al cortar una punta."),
+            CookingStep(2, "Tuesta el pan cortado en cubos hasta que quede crujiente.", 5, "Los cubos de pan se ven dorados parejos por todos los lados."),
+            CookingStep(3, "Mezcla la lechuga con el aderezo, agrega los crutones, el pollo y el parmesano.", 0, "El aderezo cubre las hojas dándoles un brillo uniforme.")
+        ),
+        audioTranscript = "Video de la receta: 'Cocina el pollo a la plancha, tuesta el pan en cubos, y mezcla la lechuga con el aderezo, los crutones, el pollo y el parmesano.'"
     )
 )
