@@ -5,75 +5,75 @@ import androidx.compose.ui.graphics.Color
 /**
  * PALETA DE COLORES DE KEKOCINO
  *
- * La app esta pensada para usuarias con baja habilidad informatica, por lo tanto
- * los colores no son solo decoracion: son una ayuda para entender la pantalla.
+ * Paleta moderna basada en 4 colores base:
+ *  - Carbón oscuro:    color de texto y fondo en modo oscuro.
+ *  - Crema suave:      fondo cálido en modo claro.
+ *  - Ocre:             color principal (acciones, botones).
+ *  - Gris claro:        superficies frías (tarjetas), contraste con la crema.
  *
- * Criterios que se usaron para elegirlos:
- *  1. CONTRASTE ALTO: el texto oscuro sobre fondo claro se lee bien incluso
- *     con poca luz o con problemas de vision.
- *  2. SIGNIFICADO: verde = accion principal (avanzar, entrar, guardar),
- *     naranjo = informacion nutricional destacada, rojo = error.
- *  3. CALIDEZ: tonos de cocina (verde hierba, naranjo zanahoria, crema) en
- *     lugar del morado por defecto de la plantilla de Android Studio.
+ * Material 3 necesita, además de estos 4, una versión "container" (más clara
+ * u oscura) de cada rol para chips, encabezados y estados seleccionados.
+ * Esas versiones están marcadas como "derivado" abajo: son tintes/sombras de
+ * los 4 colores base, no colores nuevos de marca.
  *
- * Nota sobre el formato: 0xFF2E6E4E se lee como
- *   FF = opacidad total, 2E = rojo, 6E = verde, 4E = azul (igual que #2E6E4E en CSS).
+ * Se mantiene el criterio de contraste alto de la app: el texto oscuro
+ * (Carbón) va siempre sobre superficies claras, y el texto claro (Crema)
+ * va siempre sobre superficies oscuras (Carbón).
  */
 
 // ----------------------------------------------------------------------------
-// TEMA CLARO (el que se usa por defecto)
+// COLORES BASE
 // ----------------------------------------------------------------------------
 
-/** Verde cocina. Color de los botones principales: "Entrar", "Crear cuenta". */
-val VerdeCocina = Color(0xFF2E6E4E)
+/** Carbón oscuro. Texto principal en modo claro; fondo en modo oscuro. */
+val CarbonOscuro = Color(0xFF264653)
 
-/** Texto e iconos que van ENCIMA del verde. Blanco para maximo contraste. */
-val VerdeCocinaTexto = Color(0xFFFFFFFF)
+/** Crema suave. Fondo principal en modo claro; texto principal en modo oscuro. */
+val CremaSuave = Color(0xFFF4F1DE)
 
-/** Verde muy suave, para fondos de tarjetas resaltadas sin gritar. */
-val VerdeSuave = Color(0xFFD3EBDC)
+/** Ocre. Color principal: botones "Entrar", "Crear cuenta". */
+val Ocre = Color(0xFFCC7722)
 
-/** Naranjo zanahoria. Se usa para destacar los datos nutricionales. */
-val NaranjoZanahoria = Color(0xFFB4530A)
+/** Gris claro. Superficie de tarjetas: frío, contrasta con la crema cálida. */
+val GrisClaro = Color(0xFFE2E8F0)
 
-/** Texto que va encima del naranjo. */
-val NaranjoTexto = Color(0xFFFFFFFF)
+// ----------------------------------------------------------------------------
+// TONOS DERIVADOS — TEMA CLARO
+// ----------------------------------------------------------------------------
 
-/** Naranjo muy suave, fondo de la tarjeta de recomendacion nutricional. */
-val NaranjoSuave = Color(0xFFFFE3CC)
+/** Derivado: tinte claro de ocre, para containers y chips destacados. */
+val OcreContainerClaro = Color(0xFFE6C69C)
 
-/** Mostaza, tercer color de apoyo (encabezado de la tabla nutricional). */
-val Mostaza = Color(0xFF7A5900)
+/** Derivado: ocre más oscuro, para acentos (encabezado de tabla, iconos). */
+val OcreAcento = Color(0xFFA35F1B)
 
-/** Crema. Fondo general de la app: mas calido y menos agresivo que el blanco puro. */
-val Crema = Color(0xFFFBF7F0)
+/** Derivado: mezcla neutra de crema y gris, para filas alternas y variantes de superficie. */
+val SuperficieVarianteClara = Color(0xFFECEAE2)
 
-/** Blanco. Fondo de tarjetas y campos de texto, para que "floten" sobre la crema. */
-val BlancoTarjeta = Color(0xFFFFFFFF)
+/** Derivado: carbón más suave, para texto secundario sobre superficies claras. */
+val CarbonSecundario = Color(0xFF4F6672)
 
-/** Gris muy oscuro para el texto. No se usa negro puro: cansa menos la vista. */
-val TextoOscuro = Color(0xFF1C1B17)
-
-/** Gris medio para textos secundarios (ayudas, subtitulos). */
-val TextoGris = Color(0xFF4F4C45)
-
-/** Rojo de error, para los mensajes tipo "Falta escribir tu correo". */
+/** Rojo de error. Deliberadamente distinto en matiz de la terracota (menos rojizo). */
 val RojoError = Color(0xFFB3261E)
 
 // ----------------------------------------------------------------------------
-// TEMA OSCURO (cuando el telefono esta en modo noche)
+// TONOS DERIVADOS — TEMA OSCURO
 // ----------------------------------------------------------------------------
-// Se invierte la logica: los colores de accion se aclaran para que sigan
-// destacando sobre un fondo oscuro.
 
-val VerdeCocinaOscuro = Color(0xFF9BD5AF)
-val VerdeCocinaTextoOscuro = Color(0xFF00391F)
-val VerdeContenedorOscuro = Color(0xFF14512F)
-val NaranjoZanahoriaOscuro = Color(0xFFFFB782)
-val NaranjoTextoOscuro = Color(0xFF522300)
-val NaranjoContenedorOscuro = Color(0xFF743500)
-val MostazaOscuro = Color(0xFFE9C26A)
-val FondoOscuro = Color(0xFF1B1B17)
-val SuperficieOscura = Color(0xFF2A2925)
-val TextoClaro = Color(0xFFE7E2D9)
+/** Derivado: ocre aclarado, para que sirva de acento sobre fondo oscuro. */
+val OcreClaro = Color(0xFFE0AD7A)
+
+/** Derivado: contenedor oscuro de ocre (mezcla con carbón). */
+val OcreContainerOscuro = Color(0xFF685A3F)
+
+/** Derivado: carbón un poco más claro que el fondo, para que las superficies destaquen. */
+val CarbonSuperficie = Color(0xFF33565F)
+
+/** Derivado: variante de superficie oscura, un poco más clara que [CarbonSuperficie]. */
+val CarbonSuperficieVariante = Color(0xFF3C6270)
+
+/** Derivado: contenedor secundario oscuro (gris-azulado apagado). */
+val GrisContainerOscuro = Color(0xFF3F5561)
+
+/** Rojo de error para modo oscuro (versión clara/pastel, estándar Material). */
 val RojoErrorOscuro = Color(0xFFF2B8B5)

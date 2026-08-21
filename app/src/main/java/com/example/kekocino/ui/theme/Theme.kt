@@ -5,6 +5,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Brush
 
 /**
  * TEMA VISUAL DE LA APLICACION (Material Design 3)
@@ -27,56 +28,56 @@ import androidx.compose.runtime.Composable
 
 /** Paleta para cuando el telefono esta en modo claro (el caso normal). */
 private val EsquemaClaro = lightColorScheme(
-    primary = VerdeCocina,
-    onPrimary = VerdeCocinaTexto,
-    primaryContainer = VerdeSuave,
-    onPrimaryContainer = TextoOscuro,
+    primary = Ocre,
+    onPrimary = CarbonOscuro,
+    primaryContainer = OcreContainerClaro,
+    onPrimaryContainer = CarbonOscuro,
 
-    secondary = NaranjoZanahoria,
-    onSecondary = NaranjoTexto,
-    secondaryContainer = NaranjoSuave,
-    onSecondaryContainer = TextoOscuro,
+    secondary = CarbonOscuro,
+    onSecondary = CremaSuave,
+    secondaryContainer = GrisClaro,
+    onSecondaryContainer = CarbonOscuro,
 
-    tertiary = Mostaza,
-    onTertiary = BlancoTarjeta,
+    tertiary = OcreAcento,
+    onTertiary = CremaSuave,
 
-    background = Crema,
-    onBackground = TextoOscuro,
+    background = CremaSuave,
+    onBackground = CarbonOscuro,
 
-    surface = BlancoTarjeta,
-    onSurface = TextoOscuro,
-    surfaceVariant = VerdeSuave,
-    onSurfaceVariant = TextoGris,
+    surface = GrisClaro,
+    onSurface = CarbonOscuro,
+    surfaceVariant = SuperficieVarianteClara,
+    onSurfaceVariant = CarbonSecundario,
 
     error = RojoError,
-    onError = BlancoTarjeta
+    onError = CremaSuave
 )
 
 /** Paleta para cuando el telefono esta en modo oscuro / nocturno. */
 private val EsquemaOscuro = darkColorScheme(
-    primary = VerdeCocinaOscuro,
-    onPrimary = VerdeCocinaTextoOscuro,
-    primaryContainer = VerdeContenedorOscuro,
-    onPrimaryContainer = VerdeCocinaOscuro,
+    primary = OcreClaro,
+    onPrimary = CarbonOscuro,
+    primaryContainer = OcreContainerOscuro,
+    onPrimaryContainer = OcreClaro,
 
-    secondary = NaranjoZanahoriaOscuro,
-    onSecondary = NaranjoTextoOscuro,
-    secondaryContainer = NaranjoContenedorOscuro,
-    onSecondaryContainer = NaranjoZanahoriaOscuro,
+    secondary = GrisClaro,
+    onSecondary = CarbonOscuro,
+    secondaryContainer = GrisContainerOscuro,
+    onSecondaryContainer = GrisClaro,
 
-    tertiary = MostazaOscuro,
-    onTertiary = FondoOscuro,
+    tertiary = OcreClaro,
+    onTertiary = CarbonOscuro,
 
-    background = FondoOscuro,
-    onBackground = TextoClaro,
+    background = CarbonOscuro,
+    onBackground = CremaSuave,
 
-    surface = SuperficieOscura,
-    onSurface = TextoClaro,
-    surfaceVariant = SuperficieOscura,
-    onSurfaceVariant = TextoClaro,
+    surface = CarbonSuperficie,
+    onSurface = CremaSuave,
+    surfaceVariant = CarbonSuperficieVariante,
+    onSurfaceVariant = GrisClaro,
 
     error = RojoErrorOscuro,
-    onError = FondoOscuro
+    onError = CarbonOscuro
 )
 
 /**
@@ -111,6 +112,26 @@ fun KekoCinoTheme(
     MaterialTheme(
         colorScheme = esquemaDeColor,
         typography = Typography,
+        shapes = KekoCinoShapes,
         content = content
     )
 }
+
+/**
+ * Degradado de fondo de la app: del color `background` (arriba), pasando por
+ * `surface`, hasta el naranjo durazno suave de `primaryContainer` (abajo).
+ *
+ * El paso intermedio por `surface` suaviza la transición para que no se vea
+ * como una línea de corte entre dos colores. Se define a partir de roles del
+ * esquema de color en vez de colores fijos para que se adapte solo entre modo
+ * claro y oscuro. Se aplica una sola vez, detrás del NavHost en
+ * `MainActivity.kt`, para que todas las pantallas compartan el mismo fondo.
+ */
+@Composable
+fun kekoCinoBackgroundBrush(): Brush = Brush.verticalGradient(
+    colors = listOf(
+        MaterialTheme.colorScheme.background,
+        MaterialTheme.colorScheme.surface,
+        MaterialTheme.colorScheme.primaryContainer
+    )
+)

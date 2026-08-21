@@ -47,11 +47,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.kekocino.data.User
 import com.example.kekocino.ui.theme.KekoCinoTheme
+import com.example.kekocino.ui.theme.kekoCinoBackgroundBrush
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -155,9 +157,14 @@ fun VisualTimerScreen(
         }
     }
 
-    val backgroundColor = if (flashOn) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.background
+    // En reposo se ve el mismo degradado que el resto de la app; al alertar,
+    // se cambia a un color solido (no un degradado) para que el contraste del
+    // destello sea maximo y confiable como aviso de accesibilidad.
+    val alertColor = MaterialTheme.colorScheme.error
+    val restBrush = kekoCinoBackgroundBrush()
 
     Scaffold(
+        containerColor = Color.Transparent,
         topBar = {
             TopAppBar(
                 title = { Text("Temporizador visual", style = MaterialTheme.typography.titleLarge) },
@@ -181,7 +188,9 @@ fun VisualTimerScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
-                .background(backgroundColor),
+                .then(
+                    if (flashOn) Modifier.background(alertColor) else Modifier.background(restBrush)
+                ),
             contentAlignment = Alignment.TopCenter
         ) {
             Column(
