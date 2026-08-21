@@ -1,5 +1,6 @@
 package com.example.kekocino.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,9 +28,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
-import coil3.compose.AsyncImage
 import com.example.kekocino.data.Recipe
 import com.example.kekocino.data.User
 import com.example.kekocino.data.weeklyRecipes
@@ -42,7 +43,7 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
  *  - Grilla: [LazyVerticalGrid] con [GridCells.Adaptive] — en un teléfono
  *    muestra 2 columnas; en una tablet o rotado, 3 o más. Esto es lo que
  *    hace la app "adaptativa a múltiples dispositivos" sin código extra.
- *  - Tarjetas: [Card] con imagen cargada desde internet con [AsyncImage].
+ *  - Tarjetas: [Card] con imagen cargada desde res.
  *  - Texto: día, nombre y calorías de cada receta.
  *
  * @param user la usuaria que inició sesión (para el saludo en el encabezado).
@@ -101,7 +102,7 @@ fun MinutaScreen(
 /**
  * Tarjeta de receta para la grilla.
  *
- * Muestra imagen (descargada desde internet), día, nombre y calorías.
+ * Muestra imagen (cargada desde res), día, nombre y calorías.
  * Toda la tarjeta es tocable para abrir el detalle.
  *
  * @param recipe datos de la receta a mostrar.
@@ -113,10 +114,8 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
         onClick = onClick,
         modifier = Modifier.fillMaxWidth()
     ) {
-        // Imagen descargada desde internet con Coil.
-        // El fondo de color se ve mientras carga o si no hay conexión.
-        AsyncImage(
-            model = recipe.imageUrl,
+        Image(
+            painter = painterResource(id = recipe.image),
             contentDescription = recipe.name,
             contentScale = ContentScale.Crop,
             modifier = Modifier

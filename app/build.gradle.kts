@@ -48,9 +48,6 @@ dependencies {
     implementation(libs.androidx.lifecycle.runtime.ktx)
     // Navegacion entre pantallas con NavHost/NavController.
     implementation(libs.androidx.navigation.compose)
-    // Carga de las fotos de las recetas desde internet.
-    implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

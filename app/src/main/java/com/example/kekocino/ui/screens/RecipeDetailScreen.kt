@@ -1,5 +1,6 @@
 package com.example.kekocino.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -38,10 +39,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
-import coil3.compose.AsyncImage
 import com.example.kekocino.data.Recipe
 import com.example.kekocino.data.weeklyRecipes
 import com.example.kekocino.ui.theme.KekoCinoTheme
@@ -50,7 +51,7 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
  * Pantalla de detalle de una receta.
  *
  * Componentes UI que cubre (requisito de la entrega):
- *  - Imagen: foto de la receta descargada con [AsyncImage].
+ *  - Imagen: foto de la receta (cargada desde res).
  *  - Check list de ingredientes: [Checkbox] por ingrediente para marcar
  *    lo que ya se tiene al momento de cocinar.
  *  - Tabla nutricional: encabezado + filas con fondo alterno, separadas
@@ -111,8 +112,8 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 .verticalScroll(rememberScrollState())
         ) {
             // Foto grande de la receta.
-            AsyncImage(
-                model = recipe.imageUrl,
+            Image(
+                painter = painterResource(id = recipe.image),
                 contentDescription = recipe.name,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

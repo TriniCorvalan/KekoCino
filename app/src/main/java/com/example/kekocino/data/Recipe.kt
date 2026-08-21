@@ -1,5 +1,7 @@
 package com.example.kekocino.data
 
+import androidx.annotation.DrawableRes
+
 /**
  * Representa una receta de la minuta semanal.
  *
@@ -10,7 +12,7 @@ package com.example.kekocino.data
  * @param id identificador único de la receta (1 a 5).
  * @param day día de la semana en que se prepara (ej.: "Lunes").
  * @param name nombre del plato (ej.: "Cazuela de Pollo").
- * @param imageUrl URL de la fotografía. Se descarga con Coil desde internet.
+ * @param image ID de la fotografía en res.
  * @param description texto corto que describe el plato.
  * @param ingredients lista de ingredientes principales.
  * @param calories total de calorías por porción.
@@ -27,7 +29,7 @@ data class Recipe(
     val id: Int,
     val day: String,
     val name: String,
-    val imageUrl: String,
+    @DrawableRes val image: Int,
     val description: String,
     val ingredients: List<String>,
     val calories: Int,

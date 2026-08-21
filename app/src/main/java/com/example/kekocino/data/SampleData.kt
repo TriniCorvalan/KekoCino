@@ -1,4 +1,5 @@
 package com.example.kekocino.data
+import com.example.kekocino.R
 
 /**
  * ARREGLO DE LAS 5 RECETAS SEMANALES
@@ -6,8 +7,8 @@ package com.example.kekocino.data
  * Esta lista simula los datos que en una app real vendrían de una base
  * de datos o de una API. Por ahora se guardan directamente en el código.
  *
- * Las imágenes se cargan desde el servidor de Nestle Chile usando Coil.
- * Requieren conexión a internet activa (permiso INTERNET en el Manifest).
+ * Las imágenes son recursos locales (res/drawable), referenciadas por su
+ * ID de recurso (R.drawable.xxx); no requieren conexión a internet.
  */
 val weeklyRecipes: List<Recipe> = listOf(
 
@@ -15,7 +16,7 @@ val weeklyRecipes: List<Recipe> = listOf(
         id = 1,
         day = "Lunes",
         name = "Cazuela de Pollo",
-        imageUrl = "https://www.recetasnestle.cl/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/c034e2c5ad786fba0b9c3a15ac15ce5c.webp?itok=1G-TsBeK",
+        image = R.drawable.cazuela_de_pollo,
         description = "Sopa tradicional chilena con trozos de pollo, papas, zapallo y choclo. Reconfortante y nutritiva, ideal para el almuerzo de la semana.",
         ingredients = listOf(
             "1 presa de pollo por persona",
@@ -45,7 +46,7 @@ val weeklyRecipes: List<Recipe> = listOf(
         id = 2,
         day = "Martes",
         name = "Charquicán de Zapallo",
-        imageUrl = "https://www.recetasnestle.cl/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/0babbc61e358a388c8a1c22bcd8f984e.webp?itok=aH90geiI",
+        image = R.drawable.charquican_de_zapallo,
         description = "Guiso espeso de zapallo, papas y carne molida. Clasico de la cocina chilena, muy rendidor y fácil de preparar para toda la familia.",
         ingredients = listOf(
             "500 g de carne molida",
@@ -75,7 +76,7 @@ val weeklyRecipes: List<Recipe> = listOf(
         id = 3,
         day = "Miércoles",
         name = "Pescado al Horno con Verduras",
-        imageUrl = "https://www.recetasnestle.cl/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/48295c12241d26e4c36a4a5857ff06f4.webp?itok=lyHMVLPj",
+        image = R.drawable.pescado_al_horno_con_verduras,
         description = "Filete de merluza al horno con pimentones, tomates y hierbas. Liviano, saludable y listo en 30 minutos. Perfecto para el día de en medio de la semana.",
         ingredients = listOf(
             "1 filete de merluza por persona",
@@ -104,7 +105,7 @@ val weeklyRecipes: List<Recipe> = listOf(
         id = 4,
         day = "Jueves",
         name = "Porotos Granados",
-        imageUrl = "https://www.recetasnestle.cl/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/4716ca31a6f16f8c918b9d08fdf606c5.webp?itok=UnKKdy2x",
+        image = R.drawable.porotos_granados,
         description = "Guiso veraniego de porotos frescos con choclo, zapallo y albahaca. Un plato vegetariano completo, lleno de sabor y fibra.",
         ingredients = listOf(
             "2 tazas de porotos granados (frescos o congelados)",
@@ -133,7 +134,7 @@ val weeklyRecipes: List<Recipe> = listOf(
         id = 5,
         day = "Viernes",
         name = "Ensalada César con Pollo",
-        imageUrl = "https://www.recetasnestle.cl/sites/default/files/styles/recipe_detail_desktop_new/public/srh_recipes/3a5e42e262ec4394def6f80a9cc038b4.webp?itok=IEioeLFT",
+        image = R.drawable.ensalada_cesar_con_pollo,
         description = "Lechuga romana con pollo a la plancha, tostadas de pan y aderezo cesar. Una opción fresca y liviana para terminar la semana con una comida mas ligera.",
         ingredients = listOf(
             "1 pechuga de pollo a la plancha",

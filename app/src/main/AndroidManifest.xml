@@ -3,13 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <!--
-        Permiso de INTERNET: la app necesita conexion activa para descargar
-        las fotografias de las recetas desde una URL (requisito de la entrega).
-    -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- Permite consultar si el telefono tiene conexion antes de intentar descargar. -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--
         Permiso VIBRATE: alerta hápticas del temporizador de cocción, alternativa
         a la alarma sonora para accesibilidad auditiva. Es un permiso "normal":
         no requiere solicitarlo en tiempo de ejecución.

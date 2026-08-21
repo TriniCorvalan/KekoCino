@@ -21,3 +21,4 @@ local.properties
 # Configuracion de otras herramientas/editores, no es parte del codigo del proyecto.
 .claude/
 .vscode/
+/.idea/markdown.xml

@@ -8,13 +8,6 @@ lifecycleRuntimeKtx = "2.6.1"
 activityCompose = "1.8.0"
 kotlin = "2.2.10"
 composeBom = "2026.02.01"
-# Coil: libreria para descargar y mostrar imagenes desde una URL de internet.
-# Se fija la version 3.3.0 (y no la ultima 3.5.0) a proposito:
-# Coil 3.4+ exige kotlin-stdlib 2.3/2.4, pero el compilador Kotlin de este
-# proyecto es 2.2 y no puede leer esas clases -> el proyecto no compila.
-# Regla general: la version de una libreria debe ser compatible con la
-# version de Kotlin del proyecto, no siempre "la mas nueva".
-coil = "3.3.0"
 # Navigation Compose: reemplaza la navegacion manual por estado (enum + when).
 # 2.9.5 exige kotlin-stdlib 2.0.21, compatible con el compilador Kotlin 2.2 del proyecto.
 navigationCompose = "2.9.5"
@@ -38,11 +31,6 @@ androidx-compose-material3 = { group = "androidx.compose.material3", name = "mat
 # Nota: el paquete "extended" pesa mas que "core" pero contiene todos los iconos;
 # "core" solo trae un subconjunto de ~150 y no incluye Visibility ni VisibilityOff.
 androidx-compose-material-icons-extended = { group = "androidx.compose.material", name = "material-icons-extended" }
-# coil-compose aporta el componente AsyncImage que usamos en las tarjetas de receta.
-coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref = "coil" }
-# coil-network-okhttp es el motor que realmente descarga desde internet.
-# OJO: sin esta segunda dependencia las imagenes NO cargan (Coil 3 las separo en dos artefactos).
-coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
 androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
