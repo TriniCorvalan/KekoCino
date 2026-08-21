@@ -26,7 +26,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 
 /**
- * COMPONENTES REUTILIZABLES DE KEKOCINO
+ * Componentes reutilizables
  *
  * Este archivo junta las piezas de interfaz que se repiten en varias pantallas
  * (Login, Registro, Recuperar contraseña).

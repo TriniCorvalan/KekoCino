@@ -1,19 +1,5 @@
 package com.example.kekocino.data
 
-/**
- * Representa a una usuaria registrada en la app.
- *
- * @param name nombre completo de la usuaria.
- * @param email correo electrónico, usado como identificador para iniciar sesión.
- * @param password contraseña de acceso.
- * @param preference preferencia alimentaria seleccionada en el registro.
- * @param householdSize cantidad de personas para las que se cocina (1 a 6).
- * @param visualAlerts si activa, los avisos del temporizador destellan en pantalla
- *   en vez de sonar. Preferencia de accesibilidad para discapacidad auditiva.
- * @param vibration si activa, los avisos del temporizador vibran el dispositivo.
- * @param showTranscripts si activa, las recetas muestran la transcripción escrita
- *   de cualquier contenido narrado en vez de depender del audio.
- */
 data class User(
     val name: String,
     val email: String,

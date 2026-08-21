@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 /**
- * TIPOGRAFIA DE KEKOCINO
+ * Tipografia
  */
 val Typography = Typography(
 
