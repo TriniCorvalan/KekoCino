@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Build
 import android.os.VibrationEffect
 import android.os.Vibrator
-import android.os.VibratorManager
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -63,22 +62,13 @@ private val MINUTE_OPTIONS = listOf(1, 3, 5, 10, 15, 20, 30)
 /** Modos de aviso al terminar. */
 private val ALERT_MODES = listOf("Solo destello", "Solo vibración", "Destello y vibración")
 
-/**
- * Dispara una vibración corta usando la API correspondiente según la versión
- * de Android (VibratorManager desde API 31, Vibrator clásico antes).
- */
+// Vibra el celular por 500 ms como aviso.
+@Suppress("DEPRECATION")
 private fun triggerVibration(context: Context) {
-    val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-        val manager = context.getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
-        manager.defaultVibrator
-    } else {
-        @Suppress("DEPRECATION")
-        context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-    }
+    val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE))
     } else {
-        @Suppress("DEPRECATION")
         vibrator.vibrate(500)
     }
 }
@@ -119,7 +109,6 @@ fun VisualTimerScreen(
     val shouldFlash = selectedMode == ALERT_MODES[0] || selectedMode == ALERT_MODES[2]
     val shouldVibrate = selectedMode == ALERT_MODES[1] || selectedMode == ALERT_MODES[2]
 
-    // Cuenta regresiva: se reinicia cada vez que isRunning cambia (Iniciar/Pausar).
     LaunchedEffect(isRunning) {
         while (isRunning && remainingSeconds > 0) {
             delay(1000.milliseconds)
@@ -131,7 +120,6 @@ fun VisualTimerScreen(
         }
     }
 
-    // Destello: alterna el color de fondo mientras isAlerting esté activo.
     LaunchedEffect(isAlerting, shouldFlash) {
         if (isAlerting && shouldFlash) {
             while (isAlerting) {
@@ -143,7 +131,6 @@ fun VisualTimerScreen(
         }
     }
 
-    // Vibración: se repite mientras isAlerting esté activo.
     LaunchedEffect(isAlerting, shouldVibrate) {
         while (isAlerting && shouldVibrate) {
             triggerVibration(context)
@@ -151,9 +138,6 @@ fun VisualTimerScreen(
         }
     }
 
-    // En reposo se ve el mismo degradado que el resto de la app; al alertar,
-    // se cambia a un color solido (no un degradado) para que el contraste del
-    // destello sea maximo y confiable como aviso de accesibilidad.
     val alertColor = MaterialTheme.colorScheme.error
     val restBrush = kekoCinoBackgroundBrush()
 

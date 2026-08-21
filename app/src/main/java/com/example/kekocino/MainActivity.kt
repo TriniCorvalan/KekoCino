@@ -69,8 +69,6 @@ fun KekoCinoApp() {
                 LoginScreen(
                     onLoginSuccess = { user ->
                         currentUser = user
-                        // Se limpia el login del back stack: "atrás" desde la minuta
-                        // no debe volver a mostrar la pantalla de inicio de sesión.
                         navController.navigate(Routes.MENU) {
                             popUpTo(Routes.LOGIN) { inclusive = true }
                         }
