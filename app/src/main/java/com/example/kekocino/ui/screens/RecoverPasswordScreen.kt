@@ -115,23 +115,3 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Recuperar - Teléfono")
-@Composable
-fun RecoverPasswordScreenPhonePreview() {
-    KekoCinoTheme {
-        RecoverPasswordScreen(onGoToLogin = {})
-    }
-}
-
-@Preview(showBackground = true, name = "Recuperar - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun RecoverPasswordScreenTabletPreview() {
-    KekoCinoTheme {
-        RecoverPasswordScreen(onGoToLogin = {})
-    }
-}

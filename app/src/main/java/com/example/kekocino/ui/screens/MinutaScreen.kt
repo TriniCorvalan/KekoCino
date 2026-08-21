@@ -152,29 +152,3 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Minuta - Teléfono")
-@Composable
-fun MinutaScreenPhonePreview() {
-    KekoCinoTheme {
-        MinutaScreen(
-            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
-            onRecipeClick = {}
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Minuta - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun MinutaScreenTabletPreview() {
-    KekoCinoTheme {
-        MinutaScreen(
-            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
-            onRecipeClick = {}
-        )
-    }
-}

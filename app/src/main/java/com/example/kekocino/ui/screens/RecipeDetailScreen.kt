@@ -320,23 +320,3 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Detalle - Teléfono")
-@Composable
-fun RecipeDetailScreenPhonePreview() {
-    KekoCinoTheme {
-        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {}, onStartTimer = {})
-    }
-}
-
-@Preview(showBackground = true, name = "Detalle - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun RecipeDetailScreenTabletPreview() {
-    KekoCinoTheme {
-        RecipeDetailScreen(recipe = weeklyRecipes.first(), onBack = {}, onStartTimer = {})
-    }
-}

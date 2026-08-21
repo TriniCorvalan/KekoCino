@@ -354,23 +354,3 @@ fun RegisterScreen(
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Registro - Teléfono")
-@Composable
-fun RegisterScreenPhonePreview() {
-    KekoCinoTheme {
-        RegisterScreen(onRegisterSuccess = {}, onGoToLogin = {})
-    }
-}
-
-@Preview(showBackground = true, name = "Registro - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun RegisterScreenTabletPreview() {
-    KekoCinoTheme {
-        RegisterScreen(onRegisterSuccess = {}, onGoToLogin = {})
-    }
-}

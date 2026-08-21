@@ -123,23 +123,3 @@ fun LoginScreen(
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Login - Teléfono")
-@Composable
-fun LoginScreenPhonePreview() {
-    KekoCinoTheme {
-        LoginScreen(onLoginSuccess = {}, onGoToRegister = {}, onGoToRecover = {})
-    }
-}
-
-@Preview(showBackground = true, name = "Login - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun LoginScreenTabletPreview() {
-    KekoCinoTheme {
-        LoginScreen(onLoginSuccess = {}, onGoToRegister = {}, onGoToRecover = {})
-    }
-}

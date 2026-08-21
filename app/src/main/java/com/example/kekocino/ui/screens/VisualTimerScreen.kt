@@ -302,31 +302,3 @@ fun VisualTimerScreen(
         }
     }
 }
-
-// ---------------------------------------------------------------------------
-// PREVIEWS
-// ---------------------------------------------------------------------------
-
-@Preview(showBackground = true, name = "Temporizador - Teléfono")
-@Composable
-fun VisualTimerScreenPhonePreview() {
-    KekoCinoTheme {
-        VisualTimerScreen(
-            initialMinutes = 5,
-            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
-            onBack = {}
-        )
-    }
-}
-
-@Preview(showBackground = true, name = "Temporizador - Tablet", widthDp = 800, heightDp = 1280)
-@Composable
-fun VisualTimerScreenTabletPreview() {
-    KekoCinoTheme {
-        VisualTimerScreen(
-            initialMinutes = 5,
-            user = User(name = "María González", email = "demo@kekocino.cl", password = ""),
-            onBack = {}
-        )
-    }
-}
