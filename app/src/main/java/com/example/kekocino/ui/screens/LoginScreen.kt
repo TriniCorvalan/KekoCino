@@ -77,7 +77,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Input: correo electrónico.
+            // Input correo electrónico.
             TextField(
                 value = email,
                 onValueChange = { email = it; loginError = null },
@@ -85,7 +85,7 @@ fun LoginScreen(
                 keyboardType = KeyboardType.Email
             )
 
-            // Input: contraseña con botón de mostrar/ocultar.
+            // Input contraseña
             TextField(
                 value = password,
                 onValueChange = { password = it; loginError = null },
@@ -109,14 +109,12 @@ fun LoginScreen(
                 }
             )
 
-            // Vínculo: recuperar contraseña.
             TextButton(onClick = onGoToRecover) {
                 Text("¿Olvidaste tu contraseña?")
             }
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
 
-            // Vínculo: ir al registro.
             TextButton(onClick = onGoToRegister) {
                 Text("¿No tienes cuenta? Crear una cuenta")
             }

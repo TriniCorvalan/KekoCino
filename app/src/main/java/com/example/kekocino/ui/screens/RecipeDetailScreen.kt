@@ -61,13 +61,10 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -> Unit) {
-    // Estado de los checkboxes de ingredientes (uno por cada ingrediente).
-    // remember(recipe.id) reinicia los checks cuando se abre una receta nueva.
     val checkedIngredients = remember(recipe.id) {
         mutableStateListOf(*Array(recipe.ingredients.size) { false })
     }
 
-    // Filas de la tabla nutricional.
     val nutritionRows = listOf(
         "Calorías" to "${recipe.calories} kcal",
         "Proteínas" to "${recipe.proteins} g",
@@ -102,7 +99,6 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 .padding(paddingValues)
                 .verticalScroll(rememberScrollState())
         ) {
-            // Foto grande de la receta.
             Image(
                 painter = painterResource(id = recipe.image),
                 contentDescription = recipe.name,
@@ -117,7 +113,6 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                // Descripción.
                 Text(
                     text = recipe.description,
                     style = MaterialTheme.typography.bodyLarge
@@ -125,7 +120,6 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
 
                 HorizontalDivider()
 
-                // --- Check list de ingredientes ---
                 Text(
                     text = "Ingredientes",
                     style = MaterialTheme.typography.titleMedium
@@ -149,13 +143,12 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
 
                 HorizontalDivider()
 
-                // --- Tabla de información nutricional (por porción) ---
+                // Tabla de información nutricional
                 Text(
                     text = "Información nutricional (por porción)",
                     style = MaterialTheme.typography.titleMedium
                 )
                 Card(modifier = Modifier.fillMaxWidth()) {
-                    // Encabezado de la tabla.
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -176,7 +169,6 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
-                    // Filas con fondo alterno para facilitar la lectura.
                     nutritionRows.forEachIndexed { index, (nutrient, value) ->
                         Row(
                             modifier = Modifier
@@ -202,7 +194,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                     }
                 }
 
-                // --- Recomendación nutricional ---
+                // Recomendación nutricional
                 Card(
                     modifier = Modifier.fillMaxWidth(),
                     colors = CardDefaults.cardColors(
@@ -227,7 +219,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 if (recipe.steps.isNotEmpty()) {
                     HorizontalDivider()
 
-                    // --- Paso a paso, con señal visual de término (accesibilidad auditiva) ---
+                    //Paso a paso, con señal visual
                     Text(
                         text = "Paso a paso",
                         style = MaterialTheme.typography.titleMedium
@@ -291,7 +283,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 if (recipe.audioTranscript.isNotBlank()) {
                     HorizontalDivider()
 
-                    // --- Transcripción del audio (accesibilidad auditiva) ---
+                    //  Transcripción del audio
                     Card(modifier = Modifier.fillMaxWidth()) {
                         Column(modifier = Modifier.padding(16.dp)) {
                             Row(verticalAlignment = Alignment.CenterVertically) {

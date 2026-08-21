@@ -58,36 +58,29 @@ fun RegisterScreen(
     onRegisterSuccess: () -> Unit,
     onGoToLogin: () -> Unit
 ) {
-    // --- Estado del formulario ---
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
 
-    // Radio buttons: preferencia alimentaria.
     val preferences = listOf("Sin restricción", "Vegetariana", "Sin gluten")
     var selectedPreference by remember { mutableStateOf(preferences[0]) }
 
-    // Combo box: cantidad de personas.
     val householdOptions = (1..6).map { if (it == 1) "1 persona" else "$it personas" }
     var selectedHousehold by remember { mutableStateOf(householdOptions[0]) }
     var dropdownExpanded by remember { mutableStateOf(false) }
 
-    // Check list.
     var acceptTerms by remember { mutableStateOf(false) }
     var receiveNewsletter by remember { mutableStateOf(false) }
 
-    // Check list: preferencias de accesibilidad auditiva.
     var visualAlerts by remember { mutableStateOf(true) }
     var vibration by remember { mutableStateOf(true) }
     var showTranscripts by remember { mutableStateOf(true) }
 
-    // Mensajes de error por campo.
     var nameError by remember { mutableStateOf<String?>(null) }
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
 
-    // El botón "Crear cuenta" solo se activa cuando los campos mínimos están completos.
     val isFormValid = name.isNotBlank()
         && email.isNotBlank()
         && password.length >= 6
@@ -109,7 +102,6 @@ fun RegisterScreen(
         ) {
             TitlePrimary(text = "Crear cuenta")
 
-            // --- Inputs ---
             TextField(
                 value = name,
                 onValueChange = { name = it; nameError = null },
@@ -141,7 +133,6 @@ fun RegisterScreen(
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
 
-            // --- Radio buttons: preferencia alimentaria ---
             Text(
                 text = "Preferencia alimentaria",
                 style = MaterialTheme.typography.titleMedium,
@@ -172,7 +163,6 @@ fun RegisterScreen(
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
 
-            // --- Combo box: cantidad de personas ---
             Text(
                 text = "¿Para cuántas personas cocinas?",
                 style = MaterialTheme.typography.titleMedium,
@@ -211,45 +201,6 @@ fun RegisterScreen(
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
 
-            // --- Check list ---
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { acceptTerms = !acceptTerms }
-                    .padding(vertical = 4.dp)
-            ) {
-                Checkbox(
-                    checked = acceptTerms,
-                    onCheckedChange = { acceptTerms = it }
-                )
-                Text(
-                    text = "Acepto los términos y condiciones",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .clickable { receiveNewsletter = !receiveNewsletter }
-                    .padding(vertical = 4.dp)
-            ) {
-                Checkbox(
-                    checked = receiveNewsletter,
-                    onCheckedChange = { receiveNewsletter = it }
-                )
-                Text(
-                    text = "Quiero recibir consejos nutricionales",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
-
-            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
-
-            // --- Check list: preferencias de accesibilidad auditiva ---
             Text(
                 text = "Preferencias de accesibilidad",
                 style = MaterialTheme.typography.titleMedium,
@@ -307,9 +258,45 @@ fun RegisterScreen(
                 )
             }
 
+            HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
+
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { acceptTerms = !acceptTerms }
+                    .padding(vertical = 4.dp)
+            ) {
+                Checkbox(
+                    checked = acceptTerms,
+                    onCheckedChange = { acceptTerms = it }
+                )
+                Text(
+                    text = "Acepto los términos y condiciones",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .clickable { receiveNewsletter = !receiveNewsletter }
+                    .padding(vertical = 4.dp)
+            ) {
+                Checkbox(
+                    checked = receiveNewsletter,
+                    onCheckedChange = { receiveNewsletter = it }
+                )
+                Text(
+                    text = "Quiero recibir consejos nutricionales",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(start = 8.dp)
+                )
+            }
+
             Spacer(modifier = Modifier.height(4.dp))
 
-            // --- Botón principal (deshabilitado hasta que el formulario sea válido) ---
             ButtonPrimary(
                 text = "Crear cuenta",
                 enabled = isFormValid,
@@ -328,7 +315,6 @@ fun RegisterScreen(
                         valid = false
                     }
                     if (valid) {
-                        // Extraer el número de la opción seleccionada (ej: "3 personas" → 3).
                         val householdSize = selectedHousehold.first().digitToInt()
                         registeredUsers.add(
                             User(

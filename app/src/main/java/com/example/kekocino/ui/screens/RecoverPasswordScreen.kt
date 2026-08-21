@@ -70,7 +70,7 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Input: correo electrónico.
+            // Input correo electrónico.
             TextField(
                 value = email,
                 onValueChange = { email = it; emailError = null; emailSent = false },
@@ -91,7 +91,7 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
                 }
             )
 
-            // Texto: mensaje de confirmación simulado (aparece tras presionar el botón).
+            // mensaje de confirmación simulado (aparece tras presionar el botón).
             if (emailSent) {
                 Card(
                     modifier = Modifier.fillMaxWidth(),
@@ -108,7 +108,7 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
                 }
             }
 
-            // Vínculo: volver al login.
+            // volver al login.
             TextButton(onClick = onGoToLogin) {
                 Text("Volver al inicio de sesión")
             }

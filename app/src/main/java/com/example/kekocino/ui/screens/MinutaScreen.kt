@@ -114,13 +114,13 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
             modifier = Modifier.padding(10.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp)
         ) {
-            // Día de la semana (destacado).
+            // Día de la semana.
             Text(
                 text = recipe.day,
                 style = MaterialTheme.typography.labelLarge,
                 color = MaterialTheme.colorScheme.primary
             )
-            // Nombre de la receta.
+            // Nombre.
             Text(
                 text = recipe.name,
                 style = MaterialTheme.typography.titleMedium
@@ -132,7 +132,6 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             // Indica que la receta tiene pasos con señal visual y transcripción
-            // (accesibilidad auditiva), sin necesidad de abrir el detalle.
             if (recipe.steps.isNotEmpty()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(

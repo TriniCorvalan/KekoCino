@@ -8,24 +8,6 @@ import androidx.compose.ui.unit.sp
 
 /**
  * TIPOGRAFIA DE KEKOCINO
- *
- * Los tamaños son MAS GRANDES que los que trae Material Design por defecto.
- * Esto es intencional: el publico objetivo son usuarias con baja habilidad
- * informatica, donde un texto pequeno es una barrera real de uso.
- *
- * Se usa la unidad "sp" (scalable pixels) y no "dp" para los textos.
- * Diferencia importante:
- *   - dp  -> tamano fijo, no cambia.
- *   - sp  -> respeta el ajuste "tamano de fuente" del sistema Android.
- * Es decir: si la usuaria agranda la letra en la configuracion de su telefono,
- * la app la acompana automaticamente. Esto es parte de ser ADAPTATIVA.
- *
- * Guia rapida de cuando usar cada estilo:
- *   displayLarge / headlineLarge -> titulo principal de una pantalla
- *   titleLarge / titleMedium     -> titulos de tarjeta y secciones
- *   bodyLarge                    -> texto normal de lectura
- *   bodyMedium                   -> textos secundarios y de ayuda
- *   labelLarge                   -> texto dentro de los botones
  */
 val Typography = Typography(
 
@@ -78,7 +60,7 @@ val Typography = Typography(
         lineHeight = 22.sp
     ),
 
-    // Texto que va DENTRO de los botones. Grande y en negrita para que se lea claro.
+    // Texto que va dentro de los botones. Grande y en negrita para que se lea claro.
     labelLarge = TextStyle(
         fontFamily = FontFamily.Default,
         fontWeight = FontWeight.Bold,

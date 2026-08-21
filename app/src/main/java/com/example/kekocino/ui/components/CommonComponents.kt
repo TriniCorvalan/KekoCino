@@ -77,7 +77,6 @@ fun TextField(
             keyboardType = if (isPassword) KeyboardType.Password else keyboardType
         ),
         trailingIcon = {
-            // Solo los campos de contraseña muestran el icono de ojo.
             if (isPassword) {
                 IconButton(onClick = { showPassword = !showPassword }) {
                     Icon(
