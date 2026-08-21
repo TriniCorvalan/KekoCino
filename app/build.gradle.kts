@@ -46,6 +46,8 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // Navegacion entre pantallas con NavHost/NavController.
+    implementation(libs.androidx.navigation.compose)
     // Carga de las fotos de las recetas desde internet.
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

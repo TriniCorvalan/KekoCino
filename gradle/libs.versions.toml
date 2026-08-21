@@ -15,6 +15,9 @@ composeBom = "2026.02.01"
 # Regla general: la version de una libreria debe ser compatible con la
 # version de Kotlin del proyecto, no siempre "la mas nueva".
 coil = "3.3.0"
+# Navigation Compose: reemplaza la navegacion manual por estado (enum + when).
+# 2.9.5 exige kotlin-stdlib 2.0.21, compatible con el compilador Kotlin 2.2 del proyecto.
+navigationCompose = "2.9.5"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -40,6 +43,7 @@ coil-compose = { group = "io.coil-kt.coil3", name = "coil-compose", version.ref 
 # coil-network-okhttp es el motor que realmente descarga desde internet.
 # OJO: sin esta segunda dependencia las imagenes NO cargan (Coil 3 las separo en dos artefactos).
 coil-network-okhttp = { group = "io.coil-kt.coil3", name = "coil-network-okhttp", version.ref = "coil" }
+androidx-navigation-compose = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navigationCompose" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
