@@ -6,9 +6,6 @@ import com.example.kekocino.R
  *
  * Esta lista simula los datos que en una app real vendrían de una base
  * de datos o de una API. Por ahora se guardan directamente en el código.
- *
- * Las imágenes son recursos locales (res/drawable), referenciadas por su
- * ID de recurso (R.drawable.xxx); no requieren conexión a internet.
  */
 val weeklyRecipes: List<Recipe> = listOf(
 

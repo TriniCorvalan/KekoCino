@@ -5,10 +5,6 @@ import androidx.annotation.DrawableRes
 /**
  * Representa una receta de la minuta semanal.
  *
- * Es un "data class": una clase cuyo único rol es guardar datos.
- * Kotlin genera automáticamente equals(), hashCode() y toString()
- * para que no tengamos que escribirlos a mano.
- *
  * @param id identificador único de la receta (1 a 5).
  * @param day día de la semana en que se prepara (ej.: "Lunes").
  * @param name nombre del plato (ej.: "Cazuela de Pollo").

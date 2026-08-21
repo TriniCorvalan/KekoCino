@@ -46,16 +46,6 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 /**
  * Pantalla de registro de nueva usuaria.
  *
- * Componentes UI que cubre (requisito de la entrega):
- *  - Input: nombre, correo, contraseña, repetir contraseña ([TextField]).
- *  - Radio buttons: preferencia alimentaria ([RadioButton]).
- *  - Combo box: cantidad de personas en el hogar ([ExposedDropdownMenuBox]).
- *  - Check list: aceptar términos y recibir consejos ([Checkbox]).
- *  - Check list: preferencias de accesibilidad auditiva — destellos, vibración
- *    y transcripción de audios ([Checkbox]).
- *  - Botón: "Crear cuenta", deshabilitado hasta que el formulario sea válido ([ButtonPrimary]).
- *  - Vínculo: "Ya tengo cuenta" ([TextButton]).
- *
  * Al registrar: agrega un [User] a [registeredUsers] (arreglo en memoria)
  * y llama a [onRegisterSuccess] para volver al Login.
  *

@@ -57,10 +57,10 @@ import com.example.kekocino.ui.theme.kekoCinoBackgroundBrush
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
-/** Opciones de minutos disponibles para el temporizador. */
+/** Opciones de minutos disponibles. */
 private val MINUTE_OPTIONS = listOf(1, 3, 5, 10, 15, 20, 30)
 
-/** Modos de aviso al terminar la cuenta regresiva. */
+/** Modos de aviso al terminar. */
 private val ALERT_MODES = listOf("Solo destello", "Solo vibración", "Destello y vibración")
 
 /**
@@ -84,14 +84,8 @@ private fun triggerVibration(context: Context) {
 }
 
 /**
- * Temporizador de cocción sin depender del oído: en vez de una alarma sonora,
+ * Temporizador visual: en vez de una alarma sonora,
  * avisa con un **destello de pantalla completa** y/o **vibración**.
- *
- * Componentes UI que cubre (requisito de la entrega):
- *  - Combo box: minutos a temporizar ([ExposedDropdownMenuBox]).
- *  - Radio buttons: tipo de aviso al terminar ([RadioButton]).
- *  - Botones: Iniciar / Pausar / Reiniciar ([Button], [OutlinedButton]).
- *  - Texto: cuenta regresiva en tipografía grande.
  *
  * @param initialMinutes minutos con los que se abre el temporizador (llega
  *   desde el paso de la receta que lo activó).

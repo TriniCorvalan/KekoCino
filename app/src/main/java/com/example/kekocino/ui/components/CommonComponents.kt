@@ -35,13 +35,6 @@ import androidx.compose.ui.unit.dp
 /**
  * Campo de texto estándar de la app (input de un formulario).
  *
- * Envuelve [OutlinedTextField] con tres ajustes pensados para el público
- * objetivo (baja habilidad informática):
- *  - Etiqueta y texto grandes (se heredan de la Typography de Theme.kt).
- *  - Mensaje de error en lenguaje simple, mostrado justo debajo del campo.
- *  - Opción de ocultar/mostrar la contraseña con un icono de ojo, para que
- *    la usuaria pueda verificar lo que escribió antes de enviar el formulario.
- *
  * @param value texto actual del campo.
  * @param onValueChange se llama cada vez que la usuaria escribe algo nuevo.
  * @param label texto que aparece arriba del campo (ej.: "Correo electrónico").
@@ -109,11 +102,6 @@ fun TextField(
 /**
  * Botón principal de la app (ej.: "Entrar", "Crear cuenta", "Enviar instrucciones").
  *
- * Se usa una altura mínima de 56dp: el estandar de accesibilidad de Android
- * recomienda que un área tocable tenga al menos 48dp, y para este público
- * (usuarias con baja habilidad informática) conviene dejar margen extra para
- * que sea facil de presionar incluso sin mucha precision.
- *
  * @param text lo que dice el botón.
  * @param onClick que pasa cuando se presiona.
  * @param enabled si false, el botón se ve atenuado y no responde al toque.
@@ -140,9 +128,6 @@ fun ButtonPrimary(
 
 /**
  * Título grande que encabeza cada pantalla (ej.: "Iniciar sesión", "Crear cuenta").
- *
- * Mantiene el mismo estilo de título en toda la app para que la usuaria
- * siempre sepa, de un vistazo, en qué pantalla está.
  *
  * @param text el titulo a mostrar.
  */

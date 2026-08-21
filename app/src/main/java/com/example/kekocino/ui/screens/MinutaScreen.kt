@@ -39,13 +39,6 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 /**
  * Pantalla principal: grilla con las 5 recetas de la semana.
  *
- * Componentes UI que cubre (requisito de la entrega):
- *  - Grilla: [LazyVerticalGrid] con [GridCells.Adaptive] — en un teléfono
- *    muestra 2 columnas; en una tablet o rotado, 3 o más. Esto es lo que
- *    hace la app "adaptativa a múltiples dispositivos" sin código extra.
- *  - Tarjetas: [Card] con imagen cargada desde res.
- *  - Texto: día, nombre y calorías de cada receta.
- *
  * @param user la usuaria que inició sesión (para el saludo en el encabezado).
  * @param onRecipeClick se ejecuta cuando la usuaria toca una tarjeta de receta.
  */
@@ -80,9 +73,6 @@ fun MinutaScreen(
             )
         }
     ) { paddingValues ->
-        // LazyVerticalGrid: la grilla adaptativa.
-        // GridCells.Adaptive(170.dp) calcula automáticamente cuántas columnas
-        // caben según el ancho de la pantalla — eso es lo que la hace adaptativa.
         LazyVerticalGrid(
             columns = GridCells.Adaptive(minSize = 170.dp),
             modifier = Modifier
@@ -101,9 +91,6 @@ fun MinutaScreen(
 
 /**
  * Tarjeta de receta para la grilla.
- *
- * Muestra imagen (cargada desde res), día, nombre y calorías.
- * Toda la tarjeta es tocable para abrir el detalle.
  *
  * @param recipe datos de la receta a mostrar.
  * @param onClick acción al tocar la tarjeta.
@@ -170,7 +157,6 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
 // PREVIEWS
 // ---------------------------------------------------------------------------
 
-/** En teléfono se ven 2 columnas. */
 @Preview(showBackground = true, name = "Minuta - Teléfono")
 @Composable
 fun MinutaScreenPhonePreview() {
@@ -182,7 +168,6 @@ fun MinutaScreenPhonePreview() {
     }
 }
 
-/** En tablet se ven 3 o más columnas automáticamente gracias a GridCells.Adaptive. */
 @Preview(showBackground = true, name = "Minuta - Tablet", widthDp = 800, heightDp = 1280)
 @Composable
 fun MinutaScreenTabletPreview() {

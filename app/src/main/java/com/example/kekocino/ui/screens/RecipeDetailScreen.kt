@@ -50,16 +50,7 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 /**
  * Pantalla de detalle de una receta.
  *
- * Componentes UI que cubre (requisito de la entrega):
- *  - Imagen: foto de la receta (cargada desde res).
- *  - Check list de ingredientes: [Checkbox] por ingrediente para marcar
- *    lo que ya se tiene al momento de cocinar.
- *  - Tabla nutricional: encabezado + filas con fondo alterno, separadas
- *    por [HorizontalDivider].
- *  - Texto: descripción, recomendación nutricional en una [Card].
- *  - Botón: flecha "atrás" en el [TopAppBar]; "Poner temporizador" por paso.
- *
- * Accesibilidad auditiva: cada paso de [Recipe.steps] indica su [com.example.kekocino.data.CookingStep.visualCue]
+ * Accesibilidad auditiva: cada paso de [Recipe.steps] indica su visualCue
  * —cómo se ve el plato cuando el paso está listo, en vez de un aviso sonoro—
  * y el audio de la receta se ofrece transcrito en texto.
  *

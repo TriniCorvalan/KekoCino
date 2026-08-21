@@ -35,13 +35,6 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
  * Pantalla de inicio de sesión.
- *
- * Componentes UI que cubre:
- *  - Input: campos de correo y contraseña ([TextField]).
- *  - Botón: "Entrar" ([ButtonPrimary]).
- *  - Vínculos: "¿Olvidaste tu contraseña?" Y "Crear una cuenta" ([TextButton]).
- *  - Texto: título, subtítulo y mensaje de error.
- *
  * La validación compara contra [registeredUsers] (arreglo en memoria que
  * simula la base de datos).
  *
@@ -132,11 +125,9 @@ fun LoginScreen(
 }
 
 // ---------------------------------------------------------------------------
-// PREVIEWS — permiten ver la pantalla directamente en Android Studio sin
-// ejecutar la app. El panel "Design" o "Split" las muestra en tiempo real.
+// PREVIEWS
 // ---------------------------------------------------------------------------
 
-/** Vista previa en teléfono (tamaño normal). */
 @Preview(showBackground = true, name = "Login - Teléfono")
 @Composable
 fun LoginScreenPhonePreview() {
@@ -145,8 +136,6 @@ fun LoginScreenPhonePreview() {
     }
 }
 
-/** Vista previa en tablet (800dp de ancho). Demuestra que el formulario
- *  se centra y no se estira de borde a borde en pantallas grandes. */
 @Preview(showBackground = true, name = "Login - Tablet", widthDp = 800, heightDp = 1280)
 @Composable
 fun LoginScreenTabletPreview() {

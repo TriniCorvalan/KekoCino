@@ -6,8 +6,7 @@ package com.example.kekocino.data
  * @param name nombre completo de la usuaria.
  * @param email correo electrónico, usado como identificador para iniciar sesión.
  * @param password contraseña de acceso.
- * @param preference preferencia alimentaria seleccionada en el registro
- *   (ej.: "Sin restricción", "Vegetariana", "Sin gluten").
+ * @param preference preferencia alimentaria seleccionada en el registro.
  * @param householdSize cantidad de personas para las que se cocina (1 a 6).
  * @param visualAlerts si activa, los avisos del temporizador destellan en pantalla
  *   en vez de sonar. Preferencia de accesibilidad para discapacidad auditiva.
@@ -28,9 +27,6 @@ data class User(
 
 /**
  * Lista de usuarias registradas. Simula una base de datos en memoria.
- *
- * Se usa mutableListOf para poder agregar nuevas usuarias desde la
- * pantalla de Registro sin reiniciar la app.
  *
  * Incluye 5 usuarias de prueba precargadas, cada una con una combinación
  * distinta de preferencias de accesibilidad, para poder iniciar sesión de

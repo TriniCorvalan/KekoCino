@@ -6,8 +6,7 @@ import androidx.compose.ui.unit.dp
 
 /**
  * Formas de la app: esquinas más redondeadas que el valor por defecto de
- * Material 3, para un look más moderno. No afecta el contraste ni la
- * legibilidad, solo la silueta de tarjetas, botones y campos de texto.
+ * Material 3, para un look más moderno. 
  */
 val KekoCinoShapes = Shapes(
     extraSmall = RoundedCornerShape(8.dp),

@@ -35,14 +35,8 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 /**
  * Pantalla de recuperación de contraseña.
  *
- * Componentes UI que cubre (requisito de la entrega):
- *  - Input: campo de correo electrónico ([TextField]).
- *  - Botón: "Enviar instrucciones" ([ButtonPrimary]).
- *  - Vínculo: "Volver al inicio de sesión" ([TextButton]).
- *  - Texto: confirmación simulada en una tarjeta [Card].
- *
- * El envío es simulado: no conecta a ningún servidor. Solo muestra un
- * mensaje de confirmación (tal como indica el enunciado: sin backend real).
+ * El envío es simulado: solo muestra un
+ * mensaje de confirmación (sin backend real).
  *
  * @param onGoToLogin navega de vuelta a la pantalla de inicio de sesión.
  */

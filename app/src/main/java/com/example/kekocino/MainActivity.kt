@@ -32,7 +32,7 @@ import com.example.kekocino.ui.theme.kekoCinoBackgroundBrush
 
 /**
  * Punto de entrada de la aplicación.
- * Su única responsabilidad es arrancar Compose y aplicar el tema.
+ * Arrancar Compose y aplica el tema.
  */
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,17 +50,9 @@ class MainActivity : ComponentActivity() {
  * Composable raíz que gestiona la navegación completa de la app con
  * Navigation Compose ([NavHost] + [rememberNavController]).
  *
- * El [NavController] mantiene su propio back stack: el botón "atrás" del
- * sistema navega automáticamente a la pantalla anterior, así que ya no
- * hace falta interceptarlo a mano con `BackHandler`.
+ * [currentUser] vive fuera del [NavHost] para su reutilización.
  *
- * [currentUser] vive fuera del [NavHost] porque varias pantallas necesitan
- * conocer a la usuaria que inició sesión (saludo en la minuta, preferencias
- * de accesibilidad en el temporizador).
- *
- * El [Box] exterior pinta el degradado de fondo de la app una sola vez,
- * detrás de todas las pantallas; cada pantalla deja transparente su propio
- * fondo (Scaffold con `containerColor = Color.Transparent`) para que se vea.
+ * El [Box] exterior pinta el degradado de fondo de la app.
  */
 @Composable
 fun KekoCinoApp() {
