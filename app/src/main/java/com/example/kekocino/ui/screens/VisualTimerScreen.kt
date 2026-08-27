@@ -104,6 +104,7 @@ fun VisualTimerScreen(
     val shouldVibrate = selectedMode == ALERT_MODES[1] || selectedMode == ALERT_MODES[2]
 
     LaunchedEffect(isRunning) {
+        // [kotlin] bucle while y condicional if
         while (isRunning && remainingSeconds > 0) {
             delay(1000.milliseconds)
             remainingSeconds--
@@ -115,6 +116,7 @@ fun VisualTimerScreen(
     }
 
     LaunchedEffect(isAlerting, shouldFlash) {
+        // [kotlin] condicional if else y bucle while
         if (isAlerting && shouldFlash) {
             while (isAlerting) {
                 flashOn = !flashOn
@@ -126,6 +128,7 @@ fun VisualTimerScreen(
     }
 
     LaunchedEffect(isAlerting, shouldVibrate) {
+        // [kotlin] uso de bucle while y operadores lógicos
         while (isAlerting && shouldVibrate) {
             triggerVibration(context)
             delay(800.milliseconds)
@@ -176,10 +179,11 @@ fun VisualTimerScreen(
             ) {
                 // Cuenta regresiva en tipografía grande, legible desde lejos.
                 Text(
+                    // [kotlin] operadores aritméticos
                     text = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60),
                     style = MaterialTheme.typography.displayLarge
                 )
-
+                // [kotlin] condicional if
                 if (isAlerting) {
                     Text(
                         text = "¡Tiempo cumplido!",
@@ -238,6 +242,7 @@ fun VisualTimerScreen(
                     style = MaterialTheme.typography.titleMedium,
                     modifier = Modifier.fillMaxWidth()
                 )
+                // [kotlin] iteración forEach
                 ALERT_MODES.forEach { mode ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,

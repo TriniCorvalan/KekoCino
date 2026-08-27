@@ -61,6 +61,7 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -> Unit) {
+    // [kotlin] definición de valor y uso de remember y mutable
     val checkedIngredients = remember(recipe.id) {
         mutableStateListOf(*Array(recipe.ingredients.size) { false })
     }
@@ -124,6 +125,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                     text = "Ingredientes",
                     style = MaterialTheme.typography.titleMedium
                 )
+                // [kotlin] iteración con índice
                 recipe.ingredients.forEachIndexed { index, ingredient ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -169,6 +171,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                             color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     }
+                    // [kotlin] iteración con índice
                     nutritionRows.forEachIndexed { index, (nutrient, value) ->
                         Row(
                             modifier = Modifier
@@ -216,6 +219,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                     }
                 }
 
+                // [kotlin] condicional if
                 if (recipe.steps.isNotEmpty()) {
                     HorizontalDivider()
 
@@ -224,6 +228,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                         text = "Paso a paso",
                         style = MaterialTheme.typography.titleMedium
                     )
+                    // [kotlin] iteración de elementos (pasos)
                     recipe.steps.forEach { step ->
                         Card(modifier = Modifier.fillMaxWidth()) {
                             Column(modifier = Modifier.padding(16.dp)) {
@@ -267,6 +272,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                                         modifier = Modifier.padding(start = 6.dp)
                                     )
                                 }
+                                // [kotlin] condicional if
                                 if (step.minutes > 0) {
                                     Button(
                                         onClick = { onStartTimer(step.minutes) },
@@ -279,7 +285,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                         }
                     }
                 }
-
+                // [kotlin] condicional if
                 if (recipe.audioTranscript.isNotBlank()) {
                     HorizontalDivider()
 

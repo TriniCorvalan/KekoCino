@@ -58,6 +58,7 @@ fun RegisterScreen(
     onRegisterSuccess: () -> Unit,
     onGoToLogin: () -> Unit
 ) {
+    // [kotlin] definición de variables y valores y uso de remember y mutable
     var name by remember { mutableStateOf("") }
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
@@ -81,6 +82,7 @@ fun RegisterScreen(
     var emailError by remember { mutableStateOf<String?>(null) }
     var passwordError by remember { mutableStateOf<String?>(null) }
 
+    // [kotlin] operadores lógicos
     val isFormValid = name.isNotBlank()
         && email.isNotBlank()
         && password.length >= 6
@@ -127,6 +129,7 @@ fun RegisterScreen(
                 onValueChange = { confirmPassword = it },
                 label = "Repetir contraseña",
                 isPassword = true,
+                // [kotlin] condicional if inline
                 errorMessage = if (confirmPassword.isNotEmpty() && confirmPassword != password)
                     "Las contraseñas no coinciden." else null
             )
@@ -300,6 +303,7 @@ fun RegisterScreen(
             ButtonPrimary(
                 text = "Crear cuenta",
                 enabled = isFormValid,
+                // [kotlin] condicional if, definición de variables y uso de operadores lógicos
                 onClick = {
                     var valid = true
                     if (name.isBlank()) {

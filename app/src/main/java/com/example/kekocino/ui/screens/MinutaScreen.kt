@@ -58,6 +58,7 @@ fun MinutaScreen(
                             text = "Mi Minuta Semanal",
                             style = MaterialTheme.typography.titleLarge
                         )
+                        // [kotlin] condicional if y modificaciones de String en text
                         if (user != null) {
                             Text(
                                 text = "Hola, ${user.name.split(" ").first()}!",
@@ -132,6 +133,7 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             // Indica que la receta tiene pasos con señal visual y transcripción
+            // [kotlin] condicional if
             if (recipe.steps.isNotEmpty()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(

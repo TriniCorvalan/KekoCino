@@ -42,6 +42,7 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
  */
 @Composable
 fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
+    // [kotlin] definición de variables y uso de remember y mutable
     var email by remember { mutableStateOf("") }
     var emailSent by remember { mutableStateOf(false) }
     var emailError by remember { mutableStateOf<String?>(null) }
@@ -82,6 +83,7 @@ fun RecoverPasswordScreen(onGoToLogin: () -> Unit) {
             // Botón principal.
             ButtonPrimary(
                 text = "Enviar instrucciones",
+                // [kotlin] condicional if else y operadores lógicos
                 onClick = {
                     if (email.isBlank() || !email.contains("@")) {
                         emailError = "Escribe un correo electrónico válido."
