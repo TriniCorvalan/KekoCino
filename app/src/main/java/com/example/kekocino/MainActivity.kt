@@ -27,6 +27,7 @@ import com.example.kekocino.ui.screens.RecipeDetailScreen
 import com.example.kekocino.ui.screens.RecoverPasswordScreen
 import com.example.kekocino.ui.screens.RegisterScreen
 import com.example.kekocino.ui.screens.ShoppingScreen
+import com.example.kekocino.ui.screens.SplashScreen
 import com.example.kekocino.ui.screens.VisualTimerScreen
 import com.example.kekocino.ui.theme.KekoCinoTheme
 import com.example.kekocino.ui.theme.kekoCinoBackgroundBrush
@@ -65,7 +66,16 @@ fun KekoCinoApp() {
             .fillMaxSize()
             .background(kekoCinoBackgroundBrush())
     ) {
-        NavHost(navController = navController, startDestination = Routes.LOGIN) {
+        NavHost(navController = navController, startDestination = Routes.SPLASH) {
+            composable(Routes.SPLASH) {
+                SplashScreen(
+                    onFinished = {
+                        navController.navigate(Routes.LOGIN) {
+                            popUpTo(Routes.SPLASH) { inclusive = true }
+                        }
+                    }
+                )
+            }
             composable(Routes.LOGIN) {
                 LoginScreen(
                     onLoginSuccess = { user ->

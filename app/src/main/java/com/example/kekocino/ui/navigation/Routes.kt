@@ -9,6 +9,7 @@ package com.example.kekocino.ui.navigation
  * con el valor real al navegar.
  */
 object Routes {
+    const val SPLASH = "splash"
     const val LOGIN = "login"
     const val REGISTER = "register"
     const val RECOVER = "recover"
