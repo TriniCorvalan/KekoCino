@@ -70,3 +70,38 @@ val registeredUsers = mutableListOf(
         showTranscripts = true
     )
 )
+
+// Map correo -> contraseña, armado al consultar para incluir altas nuevas.
+fun passwordsByEmail(): Map<String, String> =
+    registeredUsers.associate { it.email to it.password }
+
+// Función inline: corre un bloque y atrapa el error.
+inline fun <T> runSafely(block: () -> T): T? {
+    return try {
+        block()
+    } catch (e: Exception) {
+        null
+    }
+}
+
+// try, catch y finally al buscar una cuenta por correo.
+fun findAccountMessage(email: String): String {
+    var message = ""
+    try {
+        val key = email.trim()
+        val password = passwordsByEmail().getValue(key)
+        val user = runSafely { registeredUsers.first { it.email == key } }
+        message = if (user != null && password.isNotEmpty()) {
+            "Cuenta encontrada: ${user.name}"
+        } else {
+            "Cuenta encontrada"
+        }
+    } catch (e: NoSuchElementException) {
+        message = "No hay una cuenta con ese correo"
+    } finally {
+        if (email.trim().isEmpty()) {
+            message = "Escribe un correo para buscar"
+        }
+    }
+    return message
+}
