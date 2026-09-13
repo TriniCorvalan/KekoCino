@@ -21,6 +21,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -48,7 +49,8 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 @Composable
 fun MinutaScreen(
     user: User?,
-    onRecipeClick: (Recipe) -> Unit
+    onRecipeClick: (Recipe) -> Unit,
+    onOpenShopping: () -> Unit
 ) {
     Scaffold(
         containerColor = Color.Transparent,
@@ -72,6 +74,14 @@ fun MinutaScreen(
                                 style = MaterialTheme.typography.bodyMedium
                             )
                         }
+                    }
+                },
+                actions = {
+                    TextButton(onClick = onOpenShopping) {
+                        Text(
+                            text = "Compras",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
                     }
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
@@ -166,7 +176,8 @@ fun MinutaScreenPreview() {
     KekoCinoTheme {
         MinutaScreen(
             user = registeredUsers.first(),
-            onRecipeClick = {}
+            onRecipeClick = {},
+            onOpenShopping = {}
         )
     }
 }
