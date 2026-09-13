@@ -35,59 +35,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
-import com.example.kekocino.data.User
-import com.example.kekocino.data.registeredUsers
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kekocino.ui.components.ButtonPrimary
 import com.example.kekocino.ui.components.TextField
 import com.example.kekocino.ui.components.TitlePrimary
-import com.example.kekocino.ui.theme.KekoCinoTheme
+import com.example.kekocino.ui.viewmodel.RegisterViewModel
 
 /**
- * Pantalla de registro de nueva usuaria.
- *
- * Al registrar: agrega un [User] a [registeredUsers] (arreglo en memoria)
- * y llama a [onRegisterSuccess] para volver al Login.
- *
- * @param onRegisterSuccess se ejecuta tras registrar con éxito.
- * @param onGoToLogin navega de vuelta al inicio de sesión.
+ * Pantalla de registro. Muestra el estado de [RegisterViewModel].
+ * El dropdown abierto/cerrado se queda aquí porque es solo de la interfaz.
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreen(
     onRegisterSuccess: () -> Unit,
-    onGoToLogin: () -> Unit
+    onGoToLogin: () -> Unit,
+    viewModel: RegisterViewModel = viewModel()
 ) {
-    // [kotlin] definición de variables y valores y uso de remember y mutable
-    var name by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var confirmPassword by remember { mutableStateOf("") }
-
-    val preferences = listOf("Sin restricción", "Vegetariana", "Sin gluten")
-    var selectedPreference by remember { mutableStateOf(preferences[0]) }
-
-    val householdOptions = (1..6).map { if (it == 1) "1 persona" else "$it personas" }
-    var selectedHousehold by remember { mutableStateOf(householdOptions[0]) }
     var dropdownExpanded by remember { mutableStateOf(false) }
-
-    var acceptTerms by remember { mutableStateOf(false) }
-    var receiveNewsletter by remember { mutableStateOf(false) }
-
-    var visualAlerts by remember { mutableStateOf(true) }
-    var vibration by remember { mutableStateOf(true) }
-    var showTranscripts by remember { mutableStateOf(true) }
-
-    var nameError by remember { mutableStateOf<String?>(null) }
-    var emailError by remember { mutableStateOf<String?>(null) }
-    var passwordError by remember { mutableStateOf<String?>(null) }
-
-    // [kotlin] operadores lógicos
-    val isFormValid = name.isNotBlank()
-        && email.isNotBlank()
-        && password.length >= 6
-        && password == confirmPassword
-        && acceptTerms
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -105,33 +70,31 @@ fun RegisterScreen(
             TitlePrimary(text = "Crear cuenta")
 
             TextField(
-                value = name,
-                onValueChange = { name = it; nameError = null },
+                value = viewModel.name,
+                onValueChange = viewModel::onNameChange,
                 label = "Nombre completo",
-                errorMessage = nameError
+                errorMessage = viewModel.nameError
             )
             TextField(
-                value = email,
-                onValueChange = { email = it; emailError = null },
+                value = viewModel.email,
+                onValueChange = viewModel::onEmailChange,
                 label = "Correo electrónico",
                 keyboardType = KeyboardType.Email,
-                errorMessage = emailError
+                errorMessage = viewModel.emailError
             )
             TextField(
-                value = password,
-                onValueChange = { password = it; passwordError = null },
+                value = viewModel.password,
+                onValueChange = viewModel::onPasswordChange,
                 label = "Contraseña",
                 isPassword = true,
-                errorMessage = passwordError
+                errorMessage = viewModel.passwordError
             )
             TextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
+                value = viewModel.confirmPassword,
+                onValueChange = viewModel::onConfirmPasswordChange,
                 label = "Repetir contraseña",
                 isPassword = true,
-                // [kotlin] condicional if inline
-                errorMessage = if (confirmPassword.isNotEmpty() && confirmPassword != password)
-                    "Las contraseñas no coinciden." else null
+                errorMessage = viewModel.confirmPasswordError
             )
 
             HorizontalDivider(modifier = Modifier.padding(vertical = 4.dp))
@@ -141,19 +104,19 @@ fun RegisterScreen(
                 style = MaterialTheme.typography.titleMedium,
                 modifier = Modifier.fillMaxWidth()
             )
-            preferences.forEach { pref ->
+            viewModel.preferences.forEach { pref ->
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = Modifier
                         .fillMaxWidth()
                         .selectable(
-                            selected = selectedPreference == pref,
-                            onClick = { selectedPreference = pref }
+                            selected = viewModel.selectedPreference == pref,
+                            onClick = { viewModel.onPreferenceChange(pref) }
                         )
                         .padding(vertical = 2.dp)
                 ) {
                     RadioButton(
-                        selected = selectedPreference == pref,
+                        selected = viewModel.selectedPreference == pref,
                         onClick = null // el Row maneja el clic
                     )
                     Text(
@@ -176,7 +139,7 @@ fun RegisterScreen(
                 onExpandedChange = { dropdownExpanded = it }
             ) {
                 OutlinedTextField(
-                    value = selectedHousehold,
+                    value = viewModel.selectedHousehold,
                     onValueChange = {},
                     readOnly = true,
                     trailingIcon = {
@@ -190,11 +153,11 @@ fun RegisterScreen(
                     expanded = dropdownExpanded,
                     onDismissRequest = { dropdownExpanded = false }
                 ) {
-                    householdOptions.forEach { option ->
+                    viewModel.householdOptions.forEach { option ->
                         DropdownMenuItem(
                             text = { Text(option, style = MaterialTheme.typography.bodyLarge) },
                             onClick = {
-                                selectedHousehold = option
+                                viewModel.onHouseholdChange(option)
                                 dropdownExpanded = false
                             }
                         )
@@ -213,12 +176,12 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { visualAlerts = !visualAlerts }
+                    .clickable { viewModel.onVisualAlertsChange(!viewModel.visualAlerts) }
                     .padding(vertical = 4.dp)
             ) {
                 Checkbox(
-                    checked = visualAlerts,
-                    onCheckedChange = { visualAlerts = it }
+                    checked = viewModel.visualAlerts,
+                    onCheckedChange = viewModel::onVisualAlertsChange
                 )
                 Text(
                     text = "Avisarme con destellos de pantalla",
@@ -230,12 +193,12 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { vibration = !vibration }
+                    .clickable { viewModel.onVibrationChange(!viewModel.vibration) }
                     .padding(vertical = 4.dp)
             ) {
                 Checkbox(
-                    checked = vibration,
-                    onCheckedChange = { vibration = it }
+                    checked = viewModel.vibration,
+                    onCheckedChange = viewModel::onVibrationChange
                 )
                 Text(
                     text = "Avisarme con vibración",
@@ -247,12 +210,12 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { showTranscripts = !showTranscripts }
+                    .clickable { viewModel.onTranscriptsChange(!viewModel.showTranscripts) }
                     .padding(vertical = 4.dp)
             ) {
                 Checkbox(
-                    checked = showTranscripts,
-                    onCheckedChange = { showTranscripts = it }
+                    checked = viewModel.showTranscripts,
+                    onCheckedChange = viewModel::onTranscriptsChange
                 )
                 Text(
                     text = "Mostrar transcripción de los audios",
@@ -267,12 +230,12 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { acceptTerms = !acceptTerms }
+                    .clickable { viewModel.onAcceptTermsChange(!viewModel.acceptTerms) }
                     .padding(vertical = 4.dp)
             ) {
                 Checkbox(
-                    checked = acceptTerms,
-                    onCheckedChange = { acceptTerms = it }
+                    checked = viewModel.acceptTerms,
+                    onCheckedChange = viewModel::onAcceptTermsChange
                 )
                 Text(
                     text = "Acepto los términos y condiciones",
@@ -284,12 +247,12 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .clickable { receiveNewsletter = !receiveNewsletter }
+                    .clickable { viewModel.onNewsletterChange(!viewModel.receiveNewsletter) }
                     .padding(vertical = 4.dp)
             ) {
                 Checkbox(
-                    checked = receiveNewsletter,
-                    onCheckedChange = { receiveNewsletter = it }
+                    checked = viewModel.receiveNewsletter,
+                    onCheckedChange = viewModel::onNewsletterChange
                 )
                 Text(
                     text = "Quiero recibir consejos nutricionales",
@@ -302,38 +265,9 @@ fun RegisterScreen(
 
             ButtonPrimary(
                 text = "Crear cuenta",
-                enabled = isFormValid,
-                // [kotlin] condicional if, definición de variables y uso de operadores lógicos
+                enabled = viewModel.isFormValid,
                 onClick = {
-                    var valid = true
-                    if (name.isBlank()) {
-                        nameError = "Falta escribir tu nombre."
-                        valid = false
-                    }
-                    if (email.isBlank() || !email.contains("@")) {
-                        emailError = "Escribe un correo electrónico válido."
-                        valid = false
-                    }
-                    if (password.length < 6) {
-                        passwordError = "La contraseña debe tener al menos 6 caracteres."
-                        valid = false
-                    }
-                    if (valid) {
-                        val householdSize = selectedHousehold.first().digitToInt()
-                        registeredUsers.add(
-                            User(
-                                name = name.trim(),
-                                email = email.trim(),
-                                password = password,
-                                preference = selectedPreference,
-                                householdSize = householdSize,
-                                visualAlerts = visualAlerts,
-                                vibration = vibration,
-                                showTranscripts = showTranscripts
-                            )
-                        )
-                        onRegisterSuccess()
-                    }
+                    if (viewModel.register()) onRegisterSuccess()
                 }
             )
 

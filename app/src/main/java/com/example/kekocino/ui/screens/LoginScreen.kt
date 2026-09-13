@@ -16,42 +16,28 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kekocino.data.User
-import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.ui.components.ButtonPrimary
+import com.example.kekocino.ui.viewmodel.LoginViewModel
 import com.example.kekocino.ui.components.TextField
 import com.example.kekocino.ui.components.TitlePrimary
-import com.example.kekocino.ui.theme.KekoCinoTheme
 
 /**
- * Pantalla de inicio de sesión.
- * La validación compara contra [registeredUsers] (arreglo en memoria que
- * simula la base de datos).
- *
- * @param onLoginSuccess se ejecuta al entrar con credenciales correctas,
- *   recibe el [User] que inició sesión.
- * @param onGoToRegister navega a la pantalla de registro.
- * @param onGoToRecover navega a la pantalla de recuperar contraseña.
+ * Pantalla de inicio de sesión. Muestra el estado de [LoginViewModel].
  */
 @Composable
 fun LoginScreen(
     onLoginSuccess: (User) -> Unit,
     onGoToRegister: () -> Unit,
-    onGoToRecover: () -> Unit
+    onGoToRecover: () -> Unit,
+    viewModel: LoginViewModel = viewModel()
 ) {
-    var email by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var loginError by remember { mutableStateOf<String?>(null) }
 
     Box(
         modifier = Modifier.fillMaxSize(),
@@ -79,33 +65,26 @@ fun LoginScreen(
 
             // Input correo electrónico.
             TextField(
-                value = email,
-                onValueChange = { email = it; loginError = null },
+                value = viewModel.email,
+                onValueChange = viewModel::onEmailChange,
                 label = "Correo electrónico",
                 keyboardType = KeyboardType.Email
             )
 
             // Input contraseña
             TextField(
-                value = password,
-                onValueChange = { password = it; loginError = null },
+                value = viewModel.password,
+                onValueChange = viewModel::onPasswordChange,
                 label = "Contraseña",
                 isPassword = true,
-                errorMessage = loginError
+                errorMessage = viewModel.error
             )
 
             // Botón principal.
             ButtonPrimary(
                 text = "Entrar",
                 onClick = {
-                    val user = registeredUsers.find {
-                        it.email.trim() == email.trim() && it.password == password
-                    }
-                    if (user != null) {
-                        onLoginSuccess(user)
-                    } else {
-                        loginError = "Correo o contraseña incorrectos. Intenta nuevamente."
-                    }
+                    viewModel.login()?.let(onLoginSuccess)
                 }
             )
 

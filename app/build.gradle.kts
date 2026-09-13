@@ -46,6 +46,9 @@ dependencies {
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
+    // ViewModel: estado y lógica fuera de las pantallas.
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     // Navegacion entre pantallas con NavHost/NavController.
     implementation(libs.androidx.navigation.compose)
     testImplementation(libs.junit)

@@ -1,7 +1,6 @@
 package com.example.kekocino.ui.screens
 
-import android.content.Context
-import android.os.Vibrator
+import android.app.Application
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -36,9 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -46,36 +43,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.kekocino.data.User
-import com.example.kekocino.ui.theme.KekoCinoTheme
 import com.example.kekocino.ui.theme.kekoCinoBackgroundBrush
-import kotlinx.coroutines.delay
-import kotlin.time.Duration.Companion.milliseconds
-
-/** Opciones de minutos disponibles. */
-private val MINUTE_OPTIONS = listOf(1, 3, 5, 10, 15, 20, 30)
-
-/** Modos de aviso al terminar. */
-private val ALERT_MODES = listOf("Solo destello", "Solo vibración", "Destello y vibración")
-
-// Vibra el celular por 500 ms como aviso.
-@Suppress("DEPRECATION")
-private fun triggerVibration(context: Context) {
-    val vibrator = context.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-    vibrator.vibrate(500)
-}
+import com.example.kekocino.ui.viewmodel.TimerViewModel
 
 /**
- * Temporizador visual: en vez de una alarma sonora,
- * avisa con un **destello de pantalla completa** y/o **vibración**.
- *
- * @param initialMinutes minutos con los que se abre el temporizador (llega
- *   desde el paso de la receta que lo activó).
- * @param user usuaria logueada; sus preferencias de accesibilidad
- *   ([User.visualAlerts], [User.vibration]) definen el modo de aviso inicial.
- * @param onBack navega de vuelta al detalle de la receta.
+ * Temporizador visual. Muestra el estado de [TimerViewModel].
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -84,56 +59,11 @@ fun VisualTimerScreen(
     user: User?,
     onBack: () -> Unit
 ) {
-    var selectedMinutes by remember { mutableIntStateOf(initialMinutes.coerceIn(1, 30)) }
+    val app = LocalContext.current.applicationContext as Application
+    val viewModel: TimerViewModel = viewModel {
+        TimerViewModel(app, initialMinutes, user)
+    }
     var dropdownExpanded by remember { mutableStateOf(false) }
-
-    val defaultMode = when {
-        user?.visualAlerts == true && user.vibration -> ALERT_MODES[2]
-        user?.vibration == true -> ALERT_MODES[1]
-        else -> ALERT_MODES[0]
-    }
-    var selectedMode by remember { mutableStateOf(defaultMode) }
-
-    var remainingSeconds by remember { mutableIntStateOf(selectedMinutes * 60) }
-    var isRunning by remember { mutableStateOf(false) }
-    var isAlerting by remember { mutableStateOf(false) }
-    var flashOn by remember { mutableStateOf(false) }
-
-    val context = LocalContext.current
-    val shouldFlash = selectedMode == ALERT_MODES[0] || selectedMode == ALERT_MODES[2]
-    val shouldVibrate = selectedMode == ALERT_MODES[1] || selectedMode == ALERT_MODES[2]
-
-    LaunchedEffect(isRunning) {
-        // [kotlin] bucle while y condicional if
-        while (isRunning && remainingSeconds > 0) {
-            delay(1000.milliseconds)
-            remainingSeconds--
-        }
-        if (isRunning && remainingSeconds == 0) {
-            isRunning = false
-            isAlerting = true
-        }
-    }
-
-    LaunchedEffect(isAlerting, shouldFlash) {
-        // [kotlin] condicional if else y bucle while
-        if (isAlerting && shouldFlash) {
-            while (isAlerting) {
-                flashOn = !flashOn
-                delay(400.milliseconds)
-            }
-        } else {
-            flashOn = false
-        }
-    }
-
-    LaunchedEffect(isAlerting, shouldVibrate) {
-        // [kotlin] uso de bucle while y operadores lógicos
-        while (isAlerting && shouldVibrate) {
-            triggerVibration(context)
-            delay(800.milliseconds)
-        }
-    }
 
     val alertColor = MaterialTheme.colorScheme.error
     val restBrush = kekoCinoBackgroundBrush()
@@ -164,7 +94,7 @@ fun VisualTimerScreen(
                 .fillMaxSize()
                 .padding(paddingValues)
                 .then(
-                    if (flashOn) Modifier.background(alertColor) else Modifier.background(restBrush)
+                    if (viewModel.flashOn) Modifier.background(alertColor) else Modifier.background(restBrush)
                 ),
             contentAlignment = Alignment.TopCenter
         ) {
@@ -179,12 +109,10 @@ fun VisualTimerScreen(
             ) {
                 // Cuenta regresiva en tipografía grande, legible desde lejos.
                 Text(
-                    // [kotlin] operadores aritméticos
-                    text = "%02d:%02d".format(remainingSeconds / 60, remainingSeconds % 60),
+                    text = "%02d:%02d".format(viewModel.remainingSeconds / 60, viewModel.remainingSeconds % 60),
                     style = MaterialTheme.typography.displayLarge
                 )
-                // [kotlin] condicional if
-                if (isAlerting) {
+                if (viewModel.isAlerting) {
                     Text(
                         text = "¡Tiempo cumplido!",
                         style = MaterialTheme.typography.headlineSmall,
@@ -202,13 +130,13 @@ fun VisualTimerScreen(
                 )
                 ExposedDropdownMenuBox(
                     expanded = dropdownExpanded,
-                    onExpandedChange = { if (!isRunning) dropdownExpanded = it }
+                    onExpandedChange = { if (!viewModel.isRunning) dropdownExpanded = it }
                 ) {
                     OutlinedTextField(
-                        value = "$selectedMinutes min",
+                        value = "${viewModel.selectedMinutes} min",
                         onValueChange = {},
                         readOnly = true,
-                        enabled = !isRunning,
+                        enabled = !viewModel.isRunning,
                         trailingIcon = {
                             ExposedDropdownMenuDefaults.TrailingIcon(expanded = dropdownExpanded)
                         },
@@ -220,13 +148,11 @@ fun VisualTimerScreen(
                         expanded = dropdownExpanded,
                         onDismissRequest = { dropdownExpanded = false }
                     ) {
-                        MINUTE_OPTIONS.forEach { minutes ->
+                        viewModel.minuteOptions.forEach { minutes ->
                             DropdownMenuItem(
                                 text = { Text("$minutes min", style = MaterialTheme.typography.bodyLarge) },
                                 onClick = {
-                                    selectedMinutes = minutes
-                                    remainingSeconds = minutes * 60
-                                    isAlerting = false
+                                    viewModel.onMinutesChange(minutes)
                                     dropdownExpanded = false
                                 }
                             )
@@ -243,19 +169,19 @@ fun VisualTimerScreen(
                     modifier = Modifier.fillMaxWidth()
                 )
                 // [kotlin] iteración forEach
-                ALERT_MODES.forEach { mode ->
+                viewModel.alertModes.forEach { mode ->
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
                             .fillMaxWidth()
                             .selectable(
-                                selected = selectedMode == mode,
-                                onClick = { selectedMode = mode }
+                                selected = viewModel.selectedMode == mode,
+                                onClick = { viewModel.onModeChange(mode) }
                             )
                             .padding(vertical = 2.dp)
                     ) {
                         RadioButton(
-                            selected = selectedMode == mode,
+                            selected = viewModel.selectedMode == mode,
                             onClick = null
                         )
                         Text(
@@ -274,22 +200,15 @@ fun VisualTimerScreen(
                     horizontalArrangement = Arrangement.spacedBy(12.dp)
                 ) {
                     Button(
-                        onClick = {
-                            isAlerting = false
-                            isRunning = !isRunning
-                        },
+                        onClick = viewModel::toggleRunning,
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp)
                     ) {
-                        Text(if (isRunning) "Pausar" else "Iniciar", style = MaterialTheme.typography.labelLarge)
+                        Text(if (viewModel.isRunning) "Pausar" else "Iniciar", style = MaterialTheme.typography.labelLarge)
                     }
                     OutlinedButton(
-                        onClick = {
-                            isRunning = false
-                            isAlerting = false
-                            remainingSeconds = selectedMinutes * 60
-                        },
+                        onClick = viewModel::reset,
                         modifier = Modifier
                             .weight(1f)
                             .height(56.dp)
