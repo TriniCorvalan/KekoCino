@@ -21,7 +21,7 @@ import androidx.compose.ui.graphics.Brush
 /** Paleta para cuando el telefono esta en modo claro. */
 private val EsquemaClaro = lightColorScheme(
     primary = Ocre,
-    onPrimary = CarbonOscuro,
+    onPrimary = CarbonMuyOscuro,
     primaryContainer = OcreContainerClaro,
     onPrimaryContainer = CarbonOscuro,
 

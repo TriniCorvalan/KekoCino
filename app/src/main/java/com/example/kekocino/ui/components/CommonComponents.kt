@@ -1,17 +1,24 @@
 package com.example.kekocino.ui.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.clickable
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SoupKitchen
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
@@ -19,7 +26,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -60,7 +70,9 @@ fun TextField(
         value = value,
         onValueChange = onValueChange,
         label = { Text(label) },
-        modifier = modifier.fillMaxWidth(),
+        modifier = modifier
+            .widthIn(max = 320.dp)
+            .fillMaxWidth(),
         isError = errorMessage != null,
         supportingText = {
             if (errorMessage != null) {
@@ -78,20 +90,22 @@ fun TextField(
         ),
         trailingIcon = {
             if (isPassword) {
-                IconButton(onClick = { showPassword = !showPassword }) {
-                    Icon(
-                        imageVector = if (showPassword) {
-                            Icons.Filled.VisibilityOff
-                        } else {
-                            Icons.Filled.Visibility
-                        },
-                        contentDescription = if (showPassword) {
-                            "Ocultar contraseña"
-                        } else {
-                            "Mostrar contraseña"
-                        }
-                    )
-                }
+                Icon(
+                    imageVector = if (showPassword) {
+                        Icons.Filled.VisibilityOff
+                    } else {
+                        Icons.Filled.Visibility
+                    },
+                    contentDescription = if (showPassword) {
+                        "Ocultar contraseña"
+                    } else {
+                        "Mostrar contraseña"
+                    },
+                    modifier = Modifier
+                        .size(48.dp)
+                        .clickable { showPassword = !showPassword }
+                        .padding(12.dp)
+                )
             }
         },
         colors = OutlinedTextFieldDefaults.colors()
@@ -116,6 +130,7 @@ fun ButtonPrimary(
     Button(
         onClick = onClick,
         modifier = modifier
+            .widthIn(max = 320.dp)
             .fillMaxWidth()
             .height(56.dp),
         enabled = enabled,
@@ -125,11 +140,28 @@ fun ButtonPrimary(
     }
 }
 
-/**
- * Título grande que encabeza cada pantalla (ej.: "Iniciar sesión", "Crear cuenta").
- *
- * @param text el titulo a mostrar.
- */
+// Logo: icono de cocina de Material Icons (no hay gorro de chef en el set).
+@Composable
+fun AppLogo(
+    modifier: Modifier = Modifier,
+    size: Dp = 88.dp
+) {
+    Box(
+        modifier = modifier
+            .size(size)
+            .clip(CircleShape)
+            .background(MaterialTheme.colorScheme.primary),
+        contentAlignment = Alignment.Center
+    ) {
+        Icon(
+            imageVector = Icons.Filled.SoupKitchen,
+            contentDescription = "Logo de KekoCino",
+            tint = MaterialTheme.colorScheme.onPrimary,
+            modifier = Modifier.size(size * 0.55f)
+        )
+    }
+}
+
 @Composable
 fun TitlePrimary(
     text: String,

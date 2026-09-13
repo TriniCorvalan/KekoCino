@@ -32,7 +32,9 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.Recipe
+import com.example.kekocino.ui.components.AppLogo
 import com.example.kekocino.data.User
+import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.data.weeklyRecipes
 import com.example.kekocino.ui.theme.KekoCinoTheme
 
@@ -52,13 +54,18 @@ fun MinutaScreen(
         containerColor = Color.Transparent,
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    AppLogo(
+                        size = 40.dp,
+                        modifier = Modifier.padding(start = 12.dp)
+                    )
+                },
                 title = {
                     Column {
                         Text(
                             text = "Mi Minuta Semanal",
                             style = MaterialTheme.typography.titleLarge
                         )
-                        // [kotlin] condicional if y modificaciones de String en text
                         if (user != null) {
                             Text(
                                 text = "Hola, ${user.name.split(" ").first()}!",
@@ -133,7 +140,6 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             // Indica que la receta tiene pasos con señal visual y transcripción
-            // [kotlin] condicional if
             if (recipe.steps.isNotEmpty()) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -151,5 +157,16 @@ fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun MinutaScreenPreview() {
+    KekoCinoTheme {
+        MinutaScreen(
+            user = registeredUsers.first(),
+            onRecipeClick = {}
+        )
     }
 }

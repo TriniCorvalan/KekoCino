@@ -14,13 +14,14 @@ import androidx.compose.ui.graphics.Color
 
 // COLORES BASE
 val CarbonOscuro = Color(0xFF264653)
+val CarbonMuyOscuro = Color(0xFF0D171C) // Aún más oscuro para daltonismo
 val CremaSuave = Color(0xFFF4F1DE)
 val Ocre = Color(0xFFCC7722)
 val GrisClaro = Color(0xFFE2E8F0)
 
 // TONOS DERIVADOS — TEMA CLARO
 val OcreContainerClaro = Color(0xFFE6C69C)
-val OcreAcento = Color(0xFFA35F1B)
+val OcreAcento = Color(0xFF8B4F14) // Oscurecido para pasar contraste 4.5:1
 val SuperficieVarianteClara = Color(0xFFECEAE2)
 val CarbonSecundario = Color(0xFF4F6672)
 val RojoError = Color(0xFFB3261E)
