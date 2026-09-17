@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
@@ -34,6 +35,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.Recipe
 import com.example.kekocino.ui.components.AppLogo
 import com.example.kekocino.ui.components.InfoCard
+import com.example.kekocino.ui.components.RecetaDelDiaWidget
 import com.example.kekocino.data.User
 import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.data.weeklyRecipes
@@ -107,6 +109,14 @@ fun MinutaScreen(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
+            // ==========================================
+            // SEMANA 6
+            // WIDGET CON JETPACK COMPOSE
+            // ==========================================
+            item(span = { GridItemSpan(maxLineSpan) }) {
+                RecetaDelDiaWidget(onRecipeClick = onRecipeClick)
+            }
+
             items(weeklyRecipes) { recipe ->
                 RecipeCard(recipe = recipe, onClick = { onRecipeClick(recipe) })
             }
