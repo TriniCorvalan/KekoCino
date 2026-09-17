@@ -8,6 +8,8 @@
         no requiere solicitarlo en tiempo de ejecución.
     -->
     <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Red: catálogo «Más recetas» vía DummyJSON + ContentProvider. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -30,6 +32,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name=".provider.RecetasContentProvider"
+            android:authorities="com.example.kekocino.recetas"
+            android:exported="false" />
     </application>
 
 </manifest>

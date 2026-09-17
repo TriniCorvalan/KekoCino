@@ -51,6 +51,10 @@ dependencies {
     implementation(libs.androidx.lifecycle.viewmodel.compose)
     // Navegacion entre pantallas con NavHost/NavController.
     implementation(libs.androidx.navigation.compose)
+    // API remota (DummyJSON) + ContentProvider: misma pila que AppVivero semana 6.
+    implementation("com.squareup.retrofit2:retrofit:2.11.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("io.coil-kt:coil-compose:2.7.0")
     testImplementation(libs.junit)
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)

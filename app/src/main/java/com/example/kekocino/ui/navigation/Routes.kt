@@ -15,6 +15,7 @@ object Routes {
     const val RECOVER = "recover"
     const val MENU = "menu"
     const val SHOPPING = "shopping"
+    const val MORE_RECIPES = "more_recipes"
 
     const val RECIPE_ID_ARG = "recipeId"
     const val DETAIL = "detail/{$RECIPE_ID_ARG}"

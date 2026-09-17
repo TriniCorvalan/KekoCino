@@ -50,7 +50,8 @@ import com.example.kekocino.ui.theme.KekoCinoTheme
 fun MinutaScreen(
     user: User?,
     onRecipeClick: (Recipe) -> Unit,
-    onOpenShopping: () -> Unit
+    onOpenShopping: () -> Unit,
+    onOpenMoreRecipes: () -> Unit = {}
 ) {
     Scaffold(
         containerColor = Color.Transparent,
@@ -77,6 +78,12 @@ fun MinutaScreen(
                     }
                 },
                 actions = {
+                    TextButton(onClick = onOpenMoreRecipes) {
+                        Text(
+                            text = "Más recetas",
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
+                        )
+                    }
                     TextButton(onClick = onOpenShopping) {
                         Text(
                             text = "Compras",

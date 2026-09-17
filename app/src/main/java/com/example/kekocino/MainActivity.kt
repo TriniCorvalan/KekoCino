@@ -22,6 +22,7 @@ import com.example.kekocino.data.User
 import com.example.kekocino.data.weeklyRecipes
 import com.example.kekocino.ui.navigation.Routes
 import com.example.kekocino.ui.screens.LoginScreen
+import com.example.kekocino.ui.screens.MasRecetasScreen
 import com.example.kekocino.ui.screens.MinutaScreen
 import com.example.kekocino.ui.screens.RecipeDetailScreen
 import com.example.kekocino.ui.screens.RecoverPasswordScreen
@@ -105,11 +106,15 @@ fun KekoCinoApp() {
                     onRecipeClick = { recipe ->
                         navController.navigate(Routes.detail(recipe.id))
                     },
-                    onOpenShopping = { navController.navigate(Routes.SHOPPING) }
+                    onOpenShopping = { navController.navigate(Routes.SHOPPING) },
+                    onOpenMoreRecipes = { navController.navigate(Routes.MORE_RECIPES) }
                 )
             }
             composable(Routes.SHOPPING) {
                 ShoppingScreen(onBack = { navController.popBackStack() })
+            }
+            composable(Routes.MORE_RECIPES) {
+                MasRecetasScreen(onVolver = { navController.popBackStack() })
             }
             composable(
                 route = Routes.DETAIL,
