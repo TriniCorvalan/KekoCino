@@ -20,8 +20,6 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.ClosedCaption
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -42,14 +40,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.Recipe
-import com.example.kekocino.data.weeklyRecipes
-import com.example.kekocino.ui.theme.KekoCinoTheme
+import com.example.kekocino.ui.components.InfoCard
 
 /**
- * Pantalla de detalle de una receta.
- *
+ * Pantalla de detalle de una receta. 
+ * 
  * Accesibilidad auditiva: cada paso de [Recipe.steps] indica su visualCue
  * —cómo se ve el plato cuando el paso está listo, en vez de un aviso sonoro—
  * y el audio de la receta se ofrece transcrito en texto.
@@ -150,7 +146,7 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                     text = "Información nutricional (por porción)",
                     style = MaterialTheme.typography.titleMedium
                 )
-                Card(modifier = Modifier.fillMaxWidth()) {
+                InfoCard(contentPadding = 0.dp) {
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -198,25 +194,20 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 }
 
                 // Recomendación nutricional
-                Card(
-                    modifier = Modifier.fillMaxWidth(),
-                    colors = CardDefaults.cardColors(
-                        containerColor = MaterialTheme.colorScheme.secondaryContainer
-                    )
+                InfoCard(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer
                 ) {
-                    Column(modifier = Modifier.padding(16.dp)) {
-                        Text(
-                            text = "Recomendación nutricional",
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                        Spacer(modifier = Modifier.height(6.dp))
-                        Text(
-                            text = recipe.nutritionalTip,
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                        )
-                    }
+                    Text(
+                        text = "Recomendación nutricional",
+                        style = MaterialTheme.typography.titleMedium,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
+                    Spacer(modifier = Modifier.height(6.dp))
+                    Text(
+                        text = recipe.nutritionalTip,
+                        style = MaterialTheme.typography.bodyLarge,
+                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                    )
                 }
 
                 // [kotlin] condicional if
@@ -230,56 +221,54 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                     )
                     // [kotlin] iteración de elementos (pasos)
                     recipe.steps.forEach { step ->
-                        Card(modifier = Modifier.fillMaxWidth()) {
-                            Column(modifier = Modifier.padding(16.dp)) {
-                                Row(verticalAlignment = Alignment.CenterVertically) {
-                                    Box(
-                                        contentAlignment = Alignment.Center,
-                                        modifier = Modifier
-                                            .size(28.dp)
-                                            .background(
-                                                color = MaterialTheme.colorScheme.primary,
-                                                shape = CircleShape
-                                            )
-                                    ) {
-                                        Text(
-                                            text = "${step.order}",
-                                            color = MaterialTheme.colorScheme.onPrimary,
-                                            fontWeight = FontWeight.Bold,
-                                            style = MaterialTheme.typography.bodyMedium
+                        InfoCard {
+                            Row(verticalAlignment = Alignment.CenterVertically) {
+                                Box(
+                                    contentAlignment = Alignment.Center,
+                                    modifier = Modifier
+                                        .size(28.dp)
+                                        .background(
+                                            color = MaterialTheme.colorScheme.primary,
+                                            shape = CircleShape
                                         )
-                                    }
-                                    Text(
-                                        text = step.instruction,
-                                        style = MaterialTheme.typography.bodyLarge,
-                                        modifier = Modifier.padding(start = 12.dp)
-                                    )
-                                }
-                                Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    modifier = Modifier.padding(top = 8.dp, start = 40.dp)
                                 ) {
-                                    Icon(
-                                        imageVector = Icons.Filled.Visibility,
-                                        contentDescription = "Señal visual",
-                                        tint = MaterialTheme.colorScheme.primary,
-                                        modifier = Modifier.size(20.dp)
-                                    )
                                     Text(
-                                        text = step.visualCue,
-                                        style = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                        modifier = Modifier.padding(start = 6.dp)
+                                        text = "${step.order}",
+                                        color = MaterialTheme.colorScheme.onPrimary,
+                                        fontWeight = FontWeight.Bold,
+                                        style = MaterialTheme.typography.bodyMedium
                                     )
                                 }
-                                // [kotlin] condicional if
-                                if (step.minutes > 0) {
-                                    Button(
-                                        onClick = { onStartTimer(step.minutes) },
-                                        modifier = Modifier.padding(top = 12.dp, start = 40.dp)
-                                    ) {
-                                        Text("Poner temporizador (${step.minutes} min)")
-                                    }
+                                Text(
+                                    text = step.instruction,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    modifier = Modifier.padding(start = 12.dp)
+                                )
+                            }
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(top = 8.dp, start = 40.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Visibility,
+                                    contentDescription = "Señal visual",
+                                    tint = MaterialTheme.colorScheme.primary,
+                                    modifier = Modifier.size(20.dp)
+                                )
+                                Text(
+                                    text = step.visualCue,
+                                    style = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                    modifier = Modifier.padding(start = 6.dp)
+                                )
+                            }
+                            // [kotlin] condicional if
+                            if (step.minutes > 0) {
+                                Button(
+                                    onClick = { onStartTimer(step.minutes) },
+                                    modifier = Modifier.padding(top = 12.dp, start = 40.dp)
+                                ) {
+                                    Text("Poner temporizador (${step.minutes} min)")
                                 }
                             }
                         }
@@ -289,27 +278,25 @@ fun RecipeDetailScreen(recipe: Recipe, onBack: () -> Unit, onStartTimer: (Int) -
                 if (recipe.audioTranscript.isNotBlank()) {
                     HorizontalDivider()
 
-                    //  Transcripción del audio
-                    Card(modifier = Modifier.fillMaxWidth()) {
-                        Column(modifier = Modifier.padding(16.dp)) {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(
-                                    imageVector = Icons.Filled.ClosedCaption,
-                                    contentDescription = "Transcripción",
-                                    tint = MaterialTheme.colorScheme.primary
-                                )
-                                Text(
-                                    text = "Transcripción del audio",
-                                    style = MaterialTheme.typography.titleMedium,
-                                    modifier = Modifier.padding(start = 8.dp)
-                                )
-                            }
-                            Spacer(modifier = Modifier.height(6.dp))
+                    // Transcripción del audio
+                    InfoCard {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
+                            Icon(
+                                imageVector = Icons.Filled.ClosedCaption,
+                                contentDescription = "Transcripción",
+                                tint = MaterialTheme.colorScheme.primary
+                            )
                             Text(
-                                text = recipe.audioTranscript,
-                                style = MaterialTheme.typography.bodyLarge
+                                text = "Transcripción del audio",
+                                style = MaterialTheme.typography.titleMedium,
+                                modifier = Modifier.padding(start = 8.dp)
                             )
                         }
+                        Spacer(modifier = Modifier.height(6.dp))
+                        Text(
+                            text = recipe.audioTranscript,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
 

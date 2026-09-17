@@ -15,7 +15,6 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ClosedCaption
-import androidx.compose.material3.Card
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.kekocino.data.Recipe
 import com.example.kekocino.ui.components.AppLogo
+import com.example.kekocino.ui.components.InfoCard
 import com.example.kekocino.data.User
 import com.example.kekocino.data.registeredUsers
 import com.example.kekocino.data.weeklyRecipes
@@ -110,14 +110,17 @@ fun MinutaScreen(
 /**
  * Tarjeta de receta para la grilla.
  *
+ * Reutiliza [InfoCard] como contenedor clickable; el contenido
+ * (imagen + metadatos) es propio de la minuta.
+ *
  * @param recipe datos de la receta a mostrar.
  * @param onClick acción al tocar la tarjeta.
  */
 @Composable
 fun RecipeCard(recipe: Recipe, onClick: () -> Unit) {
-    Card(
+    InfoCard(
         onClick = onClick,
-        modifier = Modifier.fillMaxWidth()
+        contentPadding = 0.dp
     ) {
         Image(
             painter = painterResource(id = recipe.image),

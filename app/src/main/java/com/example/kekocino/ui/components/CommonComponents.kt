@@ -1,7 +1,9 @@
 package com.example.kekocino.ui.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -9,18 +11,20 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.foundation.clickable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.SoupKitchen
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardColors
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.SoupKitchen
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,17 +33,18 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 /**
  * Componentes reutilizables
  *
  * Este archivo junta las piezas de interfaz que se repiten en varias pantallas
- * (Login, Registro, Recuperar contraseña).
+ * (Login, Registro, Recuperar contraseña, Minuta, Detalle de receta, etc.).
  */
 
 /**
@@ -173,4 +178,51 @@ fun TitlePrimary(
         color = MaterialTheme.colorScheme.onBackground,
         modifier = modifier
     )
+}
+
+/**
+ * Contenedor tipo tarjeta reutilizable para el dominio de recetas
+ * (grilla de la minuta y bloques del detalle).
+ * -- Similar a Fragment
+ *
+ * @param modifier modificador externo (ancho, espaciado, etc.).
+ * @param onClick si no es null, la tarjeta responde al toque (grilla de la minuta).
+ * @param containerColor color de fondo; null usa el color por defecto del tema.
+ * @param contentPadding padding interno del contenido; 0.dp si el hijo
+ *   gestiona su propio espaciado.
+ * @param content slot composable con el cuerpo de la tarjeta.
+ */
+@Composable
+fun InfoCard(
+    modifier: Modifier = Modifier,
+    onClick: (() -> Unit)? = null,
+    containerColor: Color? = null,
+    contentPadding: Dp = 16.dp,
+    content: @Composable () -> Unit
+) {
+    val colors: CardColors = if (containerColor != null) {
+        CardDefaults.cardColors(containerColor = containerColor)
+    } else {
+        CardDefaults.cardColors()
+    }
+    val body: @Composable () -> Unit = {
+        Column(modifier = Modifier.padding(contentPadding)) {
+            content()
+        }
+    }
+
+    if (onClick != null) {
+        Card(
+            onClick = onClick,
+            modifier = modifier.fillMaxWidth(),
+            colors = colors,
+            content = { body() }
+        )
+    } else {
+        Card(
+            modifier = modifier.fillMaxWidth(),
+            colors = colors,
+            content = { body() }
+        )
+    }
 }
